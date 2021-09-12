@@ -12,5 +12,7 @@ namespace BirthdayAPI.Persistence.Models.Normal
         public string Info { get; set; }
         public DateTime Date { get; set; }
         public int ProfileId { get; set; }
+        public Profile Profile { get; set; }
+        public ICollection<Gift> Gifts { get; set; }
     }
 }

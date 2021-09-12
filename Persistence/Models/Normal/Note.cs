@@ -11,5 +11,6 @@ namespace BirthdayAPI.Persistence.Models.Normal
         public string Title { get; set; }
         public int Description { get; set; }
         public int ProfileId { get; set; }
+        public Profile Profile { get; set; }
     }
 }
