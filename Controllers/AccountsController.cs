@@ -40,10 +40,10 @@ namespace BirthdayAPI.Controllers
         // PUT: api/Accounts/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut]
-        public async Task<IActionResult> PutAccount(AccountDto account)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAccount(int id, AccountDto account)
         {
-            return Ok(await _service.UpdateAccount(account));
+            return Ok(await _service.UpdateAccount(id, account));
         }
 
         // POST: api/Accounts
