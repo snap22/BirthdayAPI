@@ -15,21 +15,6 @@ namespace BirthdayAPI.Persistence.Repositories
 
         }
 
-        public async override Task Add(Account entity)
-        {
-            await _context.Accounts.AddAsync(entity);
-        }
-
-        public override void Edit(Account entity)
-        {
-            _context.Accounts.Update(entity);
-        }
-
-        public override void Remove(Account entity)
-        {
-            _context.Accounts.Remove(entity);
-        }
-
         public async Task<IEnumerable<Account>> GetAccountsWithTag()
         {
             // TODO: hladat podla nazvu / emailu, resp. zoradenie podla nazvu / datumu vytvorenia uctu...
