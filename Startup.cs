@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BirthdayAPI.Interfaces;
 using BirthdayAPI.Persistence.Context;
+using BirthdayAPI.Persistence.Repositories;
+using BirthdayAPI.Persistence.Services;
+using BirthdayAPI.Persistence.Units;
 using BirthdayAPI.Profiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,6 +48,13 @@ namespace BirthdayAPI
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+
+            // Registering for dependency injection
+
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IUnitOfWork, SaveUnit>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
