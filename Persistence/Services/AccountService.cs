@@ -56,12 +56,20 @@ namespace BirthdayAPI.Persistence.Services
             return _mapper.Map<AccountDto>(foundAccount);
         }
 
-        public async Task<AccountDto> UpdateAccount(AccountDto account)
+        public async Task<AccountDto> UpdateAccount(int accountId, AccountDto account)
         {
             var editedAccount = _mapper.Map<Account>(account);
-            _repository.EditAccount(editedAccount);
+            var existingAccount = await _repository.GetAccountById(accountId);
+
+            //existingAccount.Email = editedAccount.Email;
+            //existingAccount.Password = editedAccount.Password;
+            //existingAccount.DateCreated = editedAccount.DateCreated;
+            _mapper.Map(account, existingAccount);
+
+            _repository.EditAccount(existingAccount);
             await _unit.CompleteAsync();
-            return _mapper.Map<AccountDto>(account);
+            var foundAccount = await _repository.GetAccountById(account.AccountId);
+            return _mapper.Map<AccountDto>(foundAccount);
         }
     }
 }
