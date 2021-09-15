@@ -10,6 +10,8 @@ namespace BirthdayAPI.Persistence.Repositories
     {
         Task<IEnumerable<Account>> GetAllAccounts();
         Task<Account> GetAccountById(int id);
+
+        Task<IEnumerable<Account>> GetSpecificAccounts();
         Task AddAccount(Account newAccount);
         void EditAccount(Account account);
         void RemoveAccount(Account account);

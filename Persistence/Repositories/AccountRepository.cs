@@ -30,7 +30,7 @@ namespace BirthdayAPI.Persistence.Repositories
             return await base.GetById(id);
         }
 
-        public async Task<IEnumerable<Account>> GetAccountsWithTag()
+        public async Task<IEnumerable<Account>> GetSpecificAccounts()
         {
             // TODO: hladat podla nazvu / emailu, resp. zoradenie podla nazvu / datumu vytvorenia uctu...
             return await _context.Accounts
