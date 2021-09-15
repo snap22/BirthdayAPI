@@ -12,7 +12,7 @@ namespace BirthdayAPI.Persistence.Services
         Task<IEnumerable<AccountDto>> GetAccounts();
         Task<IEnumerable<AccountDto>> GetSpecificAccounts();
         Task<AccountDto> CreateAccount(AccountDto account);
-        Task<AccountDto> UpdateAccount(AccountDto account);
+        Task<AccountDto> UpdateAccount(int accountId, AccountDto account);
         Task<AccountDto> RemoveAccount(int accountId);
     }
 }
