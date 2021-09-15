@@ -20,7 +20,7 @@ namespace BirthdayAPI.Profiles
         public MappingProfile()
         {
             CreateMap<Account, AccountDto>().ForMember(x => x.Password, opt => opt.ConvertUsing<PasswordConverter, string>());
-            CreateMap<AccountDto, Account>().ForMember(x => x.AccountId, opt => opt.Ignore());
+            CreateMap<AccountDto, Account>().ForMember(x => x.AccountId, opt => opt.Ignore()).ForMember(x => x.DateCreated, opt => opt.Ignore());
 
             CreateMap<Profile, ProfileDto>();
             CreateMap<ProfileDto, Profile>().ForMember(x => x.ProfileId, opt => opt.Ignore());
