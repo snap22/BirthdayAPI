@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace BirthdayAPI.Persistence.Repositories
 {
-    interface IAccountRepository
+    public interface IAccountRepository
     {
         Task<IEnumerable<Account>> GetAllAccounts();
         Task<Account> GetAccountById(int id);
-
         Task<IEnumerable<Account>> GetSpecificAccounts();
         Task AddAccount(Account newAccount);
         void EditAccount(Account account);
