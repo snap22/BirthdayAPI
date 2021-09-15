@@ -22,6 +22,7 @@ namespace BirthdayAPI.Persistence.Repositories
 
         public void EditAccount(Account account)
         {
+            _context.Entry(account).State = EntityState.Modified;
             base.Edit(account);
         }
 
