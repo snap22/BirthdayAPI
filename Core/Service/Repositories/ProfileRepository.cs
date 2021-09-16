@@ -35,9 +35,15 @@ namespace BirthdayAPI.Core.Service.Repositories
             return await base.GetById(id);
         }
 
-        public Task<IEnumerable<Profile>> GetSpecificProfiles()
+        public Profile GetProfileByAccountId(int accountId)
         {
-            throw new NotImplementedException();
+            return  _context.Profiles
+                .SingleOrDefault(p => p.AccountId == accountId);
+        }
+
+        public async Task<IEnumerable<Profile>> GetSpecificProfiles()
+        {
+            return await base.GetAll();
         }
 
         public bool ProfileWithIdExists(int profileId)
