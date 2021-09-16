@@ -46,5 +46,10 @@ namespace BirthdayAPI.Persistence.Repositories
         {
             base.Remove(account);
         }
+
+        public bool AccountExists(int accountId)
+        {
+            return _context.Accounts.Any(x => x.AccountId == accountId);
+        }
     }
 }
