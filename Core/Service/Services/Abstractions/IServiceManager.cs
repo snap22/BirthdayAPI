@@ -9,5 +9,6 @@ namespace BirthdayAPI.Core.Service.Services.Abstractions
     {
         IAccountService AccountService { get; }
         IProfileService ProfileService { get; }
+        IContactService ContactService { get; }
     }
 }
