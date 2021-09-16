@@ -14,7 +14,7 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
         Task AddAccount(Account newAccount);
         void EditAccount(Account account);
         void RemoveAccount(Account account);
-        bool AccountWithId(int accountId);
+        bool AccountWithIdExists(int accountId);
         bool AccountWithEmailExists(string email);
     }
 }

@@ -83,7 +83,7 @@ namespace BirthdayAPI.Core.Service.Services
 
         private void ThrowErrorIfAccountDoesntExist(int accountId)
         {
-            if (_repository.AccountRepository.AccountWithId(accountId) == false)
+            if (_repository.AccountRepository.AccountWithIdExists(accountId) == false)
                 throw new NotFoundException($"Account with id: {accountId} doesn't exist!");
         }
 
