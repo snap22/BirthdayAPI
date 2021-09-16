@@ -48,9 +48,14 @@ namespace BirthdayAPI.Core.Service.Repositories
             base.Remove(account);
         }
 
-        public bool AccountExists(int accountId)
+        public bool AccountWithId(int accountId)
         {
             return _context.Accounts.Any(x => x.AccountId == accountId);
+        }
+
+        public bool AccountWithEmailExists(string email)
+        {
+            return _context.Accounts.Any(x => x.Email == email);
         }
     }
 }
