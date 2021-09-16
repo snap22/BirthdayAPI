@@ -10,5 +10,6 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
     {
         IAccountRepository AccountRepository { get; }
         IUnitOfWork UnitOfWork { get; }
+        IProfileRepository ProfileRepository { get; }
     }
 }
