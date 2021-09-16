@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using BirthdayAPI.Interfaces;
+using BirthdayAPI.Abstractions;
 using BirthdayAPI.Persistence.Models.DTO;
-using BirthdayAPI.Persistence.Models.Normal;
+using BirthdayAPI.Persistence.Models.Entities;
 using BirthdayAPI.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
@@ -32,6 +32,11 @@ namespace BirthdayAPI.Persistence.Services
 
         public async Task<AccountDto> GetAccount(int accountId)
         {
+            if (!_repository.AccountExists(accountId))
+            {
+                // Ucet Neexistuje
+            }
+                
             var foundAccount = await _repository.GetAccountById(accountId);
             return _mapper.Map<AccountDto>(foundAccount);
         }
@@ -58,16 +63,12 @@ namespace BirthdayAPI.Persistence.Services
 
         public async Task<AccountDto> UpdateAccount(int accountId, AccountDto account)
         {
-            var editedAccount = _mapper.Map<Account>(account);
             var existingAccount = await _repository.GetAccountById(accountId);
 
-            //existingAccount.Email = editedAccount.Email;
-            //existingAccount.Password = editedAccount.Password;
-            //existingAccount.DateCreated = editedAccount.DateCreated;
             _mapper.Map(account, existingAccount);
-
             _repository.EditAccount(existingAccount);
             await _unit.CompleteAsync();
+
             var foundAccount = await _repository.GetAccountById(account.AccountId);
             return _mapper.Map<AccountDto>(foundAccount);
         }

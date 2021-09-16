@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BirthdayAPI.Persistence.Context;
-using BirthdayAPI.Persistence.Models.Normal;
+using BirthdayAPI.Persistence.Models.Entities;
 using BirthdayAPI.Persistence.Services;
 using BirthdayAPI.Persistence.Models.DTO;
 
@@ -34,7 +34,14 @@ namespace BirthdayAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AccountDto>> GetAccount(int id)
         {
-            return Ok(await _service.GetAccount(id));
+            var foundAccount = await _service.GetAccount(id);
+
+            if (foundAccount == null)
+            {
+                return NotFound(id);
+            }
+
+            return Ok(foundAccount);
         }
 
         // PUT: api/Accounts/5

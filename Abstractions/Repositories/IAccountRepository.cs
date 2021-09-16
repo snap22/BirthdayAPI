@@ -1,4 +1,4 @@
-﻿using BirthdayAPI.Persistence.Models.Normal;
+﻿using BirthdayAPI.Persistence.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

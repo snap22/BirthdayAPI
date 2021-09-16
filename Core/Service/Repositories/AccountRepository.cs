@@ -1,5 +1,5 @@
 ﻿using BirthdayAPI.Persistence.Context;
-using BirthdayAPI.Persistence.Models.Normal;
+using BirthdayAPI.Persistence.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

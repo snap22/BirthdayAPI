@@ -19,5 +19,13 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Core\Domain\Abstractions\Units\" />
+    <Folder Include="Core\Domain\Abstractions\Repositories\" />
+    <Folder Include="Core\Domain\Exceptions\" />
+    <Folder Include="Core\Domain\Abstractions\Services\" />
+    <Folder Include="Infrastructure\Middlewares\" />
+  </ItemGroup>
+
 
 </Project>

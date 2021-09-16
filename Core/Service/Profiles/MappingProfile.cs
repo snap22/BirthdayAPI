@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BirthdayAPI.Persistence.Models.DTO;
-using BirthdayAPI.Persistence.Models.Normal;
-using Profile = BirthdayAPI.Persistence.Models.Normal.Profile;
+using BirthdayAPI.Persistence.Models.Entities;
+using Profile = BirthdayAPI.Persistence.Models.Entities.Profile;
 
 namespace BirthdayAPI.Profiles
 {
