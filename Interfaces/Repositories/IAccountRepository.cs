@@ -14,5 +14,6 @@ namespace BirthdayAPI.Persistence.Repositories
         Task AddAccount(Account newAccount);
         void EditAccount(Account account);
         void RemoveAccount(Account account);
+        bool AccountExists(int accountId);
     }
 }
