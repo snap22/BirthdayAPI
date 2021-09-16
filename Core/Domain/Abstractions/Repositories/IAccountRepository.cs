@@ -1,10 +1,10 @@
-﻿using BirthdayAPI.Persistence.Models.Entities;
+﻿using BirthdayAPI.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BirthdayAPI.Persistence.Repositories
+namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
 {
     public interface IAccountRepository
     {

@@ -1,11 +1,11 @@
-﻿using BirthdayAPI.Persistence.Models.Entities;
+﻿using BirthdayAPI.Core.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BirthdayAPI.Persistence.Context
+namespace BirthdayAPI.Infrastructure.Persistence.Context
 {
     public class ApplicationDbContext : DbContext
     {

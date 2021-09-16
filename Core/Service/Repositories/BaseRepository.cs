@@ -1,9 +1,9 @@
-﻿using BirthdayAPI.Persistence.Context;
+﻿using BirthdayAPI.Infrastructure.Persistence.Context;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace BirthdayAPI.Persistence.Repositories
+namespace BirthdayAPI.Core.Service.Repositories
 {
     public abstract class BaseRepository<T> where T : class
     {

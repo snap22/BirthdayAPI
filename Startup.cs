@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using BirthdayAPI.Abstractions;
-using BirthdayAPI.Persistence.Context;
-using BirthdayAPI.Persistence.Repositories;
-using BirthdayAPI.Persistence.Services;
-using BirthdayAPI.Persistence.Units;
-using BirthdayAPI.Profiles;
+using BirthdayAPI.Core.Domain.Abstractions.Units;
+using BirthdayAPI.Infrastructure.Persistence.Context;
+using BirthdayAPI.Core.Domain.Abstractions.Repositories;
+using BirthdayAPI.Core.Domain.Abstractions.Services;
+using BirthdayAPI.Core.Service.Units;
+using BirthdayAPI.Core.Service.Profiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,6 +18,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using BirthdayAPI.Core.Service.Services;
+using BirthdayAPI.Core.Service.Repositories;
 
 namespace BirthdayAPI
 {

@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
-using BirthdayAPI.Abstractions;
-using BirthdayAPI.Persistence.Models.DTO;
-using BirthdayAPI.Persistence.Models.Entities;
-using BirthdayAPI.Persistence.Repositories;
+using BirthdayAPI.Core.Domain.Abstractions.Units;
+using BirthdayAPI.Core.Service.DTOs;
+using BirthdayAPI.Core.Domain.Entities;
+using BirthdayAPI.Core.Domain.Abstractions.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BirthdayAPI.Core.Domain.Abstractions.Services;
 
-namespace BirthdayAPI.Persistence.Services
+namespace BirthdayAPI.Core.Service.Services
 {
     public class AccountService : IAccountService
     {

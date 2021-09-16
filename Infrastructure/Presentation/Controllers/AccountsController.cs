@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BirthdayAPI.Persistence.Context;
-using BirthdayAPI.Persistence.Models.Entities;
-using BirthdayAPI.Persistence.Services;
-using BirthdayAPI.Persistence.Models.DTO;
+using BirthdayAPI.Infrastructure.Persistence.Context;
+using BirthdayAPI.Core.Domain.Entities;
+using BirthdayAPI.Core.Domain.Abstractions.Services;
+using BirthdayAPI.Core.Service.DTOs;
 
 namespace BirthdayAPI.Controllers
 {

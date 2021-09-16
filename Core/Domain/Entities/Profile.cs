@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BirthdayAPI.Persistence.Models.Entities
+namespace BirthdayAPI.Core.Domain.Entities
 {
     public class Profile
     {

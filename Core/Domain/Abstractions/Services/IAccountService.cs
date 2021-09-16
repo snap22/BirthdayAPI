@@ -1,10 +1,10 @@
-﻿using BirthdayAPI.Persistence.Models.DTO;
+﻿using BirthdayAPI.Core.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BirthdayAPI.Persistence.Services
+namespace BirthdayAPI.Core.Domain.Abstractions.Services
 {
     public interface IAccountService
     {

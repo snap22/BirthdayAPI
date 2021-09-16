@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using BirthdayAPI.Persistence.Models.DTO;
-using BirthdayAPI.Persistence.Models.Entities;
-using Profile = BirthdayAPI.Persistence.Models.Entities.Profile;
+using BirthdayAPI.Core.Service.DTOs;
+using BirthdayAPI.Core.Domain.Entities;
+using Profile = BirthdayAPI.Core.Domain.Entities.Profile;
 
-namespace BirthdayAPI.Profiles
+namespace BirthdayAPI.Core.Service.Profiles
 {
     public class PasswordConverter : AutoMapper.IValueConverter<string, string>
     {
