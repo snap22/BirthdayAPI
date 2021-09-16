@@ -21,6 +21,9 @@ using Microsoft.Extensions.Logging;
 using BirthdayAPI.Core.Service.Services;
 using BirthdayAPI.Core.Service.Repositories;
 using BirthdayAPI.Infrastructure.Middlewares;
+using BirthdayAPI.Infrastructure.Filters;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 
 namespace BirthdayAPI
 {
@@ -29,6 +32,9 @@ namespace BirthdayAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            // Disabling local language for fluent validation (english is used instead)
+            ValidatorOptions.Global.LanguageManager.Enabled = false;
         }
 
         public IConfiguration Configuration { get; }
@@ -37,6 +43,16 @@ namespace BirthdayAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // Fluent Validation
+            services.AddMvc(setup =>
+            {
+                setup.Filters.Add<ValidationFilter>();
+            })
+            .AddFluentValidation(mvcConfiguration =>
+            {
+                mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
 
             // Swagger
             services.AddSwaggerGen();
