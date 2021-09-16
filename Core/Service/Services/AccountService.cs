@@ -22,6 +22,8 @@ namespace BirthdayAPI.Core.Service.Services
         }
         public async Task<AccountDto> CreateAccount(AccountDto account)
         {
+            ThrowErrorIfEmailAlreadyUsed(account.Email);
+
             var newAccount = _mapper.Map<Account>(account);
             await _repository.AccountRepository.AddAccount(newAccount);
             await _repository.UnitOfWork.CompleteAsync();
@@ -65,6 +67,12 @@ namespace BirthdayAPI.Core.Service.Services
             ThrowErrorIfAccountDoesntExist(accountId);
 
             var existingAccount = await _repository.AccountRepository.GetAccountById(accountId);
+
+            if (existingAccount.Email != account.Email)
+            {
+                ThrowErrorIfEmailAlreadyUsed(account.Email);
+            }
+
             _mapper.Map(account, existingAccount);
             _repository.AccountRepository.EditAccount(existingAccount);
             await _repository.UnitOfWork.CompleteAsync();
@@ -75,8 +83,14 @@ namespace BirthdayAPI.Core.Service.Services
 
         private void ThrowErrorIfAccountDoesntExist(int accountId)
         {
-            if (_repository.AccountRepository.AccountExists(accountId) == false)
+            if (_repository.AccountRepository.AccountWithId(accountId) == false)
                 throw new NotFoundException($"Account with id: {accountId} doesn't exist!");
+        }
+
+        private void ThrowErrorIfEmailAlreadyUsed(string email)
+        {
+            if (_repository.AccountRepository.AccountWithEmailExists(email))
+                throw new BadRequestException($"Account with email: {email} already exists!");
         }
     }
 }
