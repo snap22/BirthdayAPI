@@ -9,7 +9,7 @@ namespace BirthdayAPI.Core.Service.DTOs
     {
         public int NoteId { get; set; }
         public string Title { get; set; }
-        public int Description { get; set; }
+        public string Description { get; set; }
         public int ProfileId { get; set; }
     }
 }
