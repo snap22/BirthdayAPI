@@ -20,6 +20,9 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
             _service = service;
         }
 
+        #region Profile
+
+
         // GET: api/Profiles
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProfileDto>>> GetProfiles()
@@ -38,20 +41,20 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfile(int id, ProfileDto Profile)
+        public async Task<IActionResult> PutProfile(int id, ProfileDto profile)
         {
-            return Ok(await _service.ProfileService.UpdateProfile(id, Profile));
+            return Ok(await _service.ProfileService.UpdateProfile(id, profile));
         }
 
         // POST: api/Profiles
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<ProfileDto>> PostProfile(ProfileDto Profile)
+        public async Task<ActionResult<ProfileDto>> PostProfile(ProfileDto profile)
         {
-            await _service.ProfileService.CreateProfile(Profile);
+            await _service.ProfileService.CreateProfile(profile);
 
-            return CreatedAtAction(nameof(GetProfile), new { id = Profile.ProfileId }, Profile);
+            return CreatedAtAction(nameof(GetProfile), new { id = profile.ProfileId }, profile);
         }
 
         // DELETE: api/Profiles/5
@@ -60,5 +63,28 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         {
             return Ok(await _service.ProfileService.RemoveProfile(id));
         }
+
+
+        #endregion Profile
+
+
+        #region Contact
+
+
+
+
+        #endregion Contact
+
+        #region Gift
+
+
+
+        #endregion Gift
+
+        #region Note
+
+
+
+        #endregion Note
     }
 }
