@@ -6,7 +6,7 @@ using AutoMapper;
 using BirthdayAPI.Core.Domain.Abstractions.Units;
 using BirthdayAPI.Infrastructure.Persistence.Context;
 using BirthdayAPI.Core.Domain.Abstractions.Repositories;
-using BirthdayAPI.Core.Domain.Abstractions.Services;
+using BirthdayAPI.Core.Service.Services.Abstractions;
 using BirthdayAPI.Core.Service.Units;
 using BirthdayAPI.Core.Service.Profiles;
 using Microsoft.AspNetCore.Builder;

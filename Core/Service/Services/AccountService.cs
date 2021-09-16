@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BirthdayAPI.Core.Domain.Abstractions.Services;
+using BirthdayAPI.Core.Service.Services.Abstractions;
 
 namespace BirthdayAPI.Core.Service.Services
 {

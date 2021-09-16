@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BirthdayAPI.Infrastructure.Persistence.Context;
 using BirthdayAPI.Core.Domain.Entities;
-using BirthdayAPI.Core.Domain.Abstractions.Services;
+using BirthdayAPI.Core.Service.Services.Abstractions;
 using BirthdayAPI.Core.Service.DTOs;
 
 namespace BirthdayAPI.Controllers
