@@ -20,6 +20,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using BirthdayAPI.Core.Service.Services;
 using BirthdayAPI.Core.Service.Repositories;
+using BirthdayAPI.Infrastructure.Middlewares;
 
 namespace BirthdayAPI
 {
@@ -56,6 +57,11 @@ namespace BirthdayAPI
 
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IServiceManager, ServiceManager>();
+
+
+            // Exception handling middleware
+
+            services.AddTransient<ExceptionHandlingMiddleware>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +78,8 @@ namespace BirthdayAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Birthday API V1");
                 c.RoutePrefix = string.Empty;
             });
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseHttpsRedirection();
 
