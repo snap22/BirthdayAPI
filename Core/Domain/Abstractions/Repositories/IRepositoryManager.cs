@@ -11,5 +11,9 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
         IAccountRepository AccountRepository { get; }
         IUnitOfWork UnitOfWork { get; }
         IProfileRepository ProfileRepository { get; }
+        IContactRepository ContactRepository { get; }
+        IGiftRepository GiftRepository { get; }
+        INoteRepository NoteRepository { get; }
+
     }
 }
