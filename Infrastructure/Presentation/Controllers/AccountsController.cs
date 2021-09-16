@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using BirthdayAPI.Infrastructure.Persistence.Context;
-using BirthdayAPI.Core.Domain.Entities;
 using BirthdayAPI.Core.Service.Services.Abstractions;
 using BirthdayAPI.Core.Service.DTOs;
 
@@ -34,8 +30,7 @@ namespace BirthdayAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AccountDto>> GetAccount(int id)
         {
-            var foundAccount = await _service.AccountService.GetAccount(id);
-            return Ok(foundAccount);
+            return Ok(await _service.AccountService.GetAccount(id));
         }
 
         // PUT: api/Accounts/5
@@ -62,8 +57,7 @@ namespace BirthdayAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<AccountDto>> DeleteAccount(int id)
         {
-            var deletedAccount = await _service.AccountService.RemoveAccount(id);
-            return Ok(deletedAccount);
+            return Ok(await _service.AccountService.RemoveAccount(id));
         }
 
         
