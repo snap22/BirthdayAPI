@@ -22,5 +22,7 @@ namespace BirthdayAPI.Core.Service.Services
         public IAccountService AccountService => _lazyAccountService.Value;
 
         public IProfileService ProfileService => _lazyProfileService.Value;
+
+        public IContactService ContactService => throw new NotImplementedException();
     }
 }
