@@ -16,9 +16,9 @@ namespace BirthdayAPI.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private readonly IAccountService _service;
+        private readonly IServiceManager _service;
 
-        public AccountsController(IAccountService service)
+        public AccountsController(IServiceManager service)
         {
             _service = service;
         }
@@ -27,20 +27,14 @@ namespace BirthdayAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AccountDto>>> GetAccounts()
         {
-            return Ok(await _service.GetAccounts());
+            return Ok(await _service.AccountService.GetAccounts());
         }
 
         // GET: api/Accounts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AccountDto>> GetAccount(int id)
         {
-            var foundAccount = await _service.GetAccount(id);
-
-            if (foundAccount == null)
-            {
-                return NotFound(id);
-            }
-
+            var foundAccount = await _service.AccountService.GetAccount(id);
             return Ok(foundAccount);
         }
 
@@ -50,7 +44,7 @@ namespace BirthdayAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAccount(int id, AccountDto account)
         {
-            return Ok(await _service.UpdateAccount(id, account));
+            return Ok(await _service.AccountService.UpdateAccount(id, account));
         }
 
         // POST: api/Accounts
@@ -59,7 +53,7 @@ namespace BirthdayAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<AccountDto>> PostAccount(AccountDto account)
         {
-            await _service.CreateAccount(account);
+            await _service.AccountService.CreateAccount(account);
 
             return CreatedAtAction(nameof(GetAccount), new { id = account.AccountId }, account);
         }
@@ -68,7 +62,7 @@ namespace BirthdayAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<AccountDto>> DeleteAccount(int id)
         {
-            var deletedAccount = await _service.RemoveAccount(id);
+            var deletedAccount = await _service.AccountService.RemoveAccount(id);
             return Ok(deletedAccount);
         }
 

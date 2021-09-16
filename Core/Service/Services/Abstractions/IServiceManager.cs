@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace BirthdayAPI.Core.Service.Services.Abstractions
 {
-    interface IServiceManager
+    public interface IServiceManager
     {
+        IAccountService AccountService { get; }
+        IProfileService ProfileService { get; }
     }
 }

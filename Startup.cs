@@ -54,9 +54,8 @@ namespace BirthdayAPI
 
             // Registering for dependency injection
 
-            services.AddScoped<IAccountRepository, AccountRepository>();
-            services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<IUnitOfWork, SaveUnit>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
+            services.AddScoped<IServiceManager, ServiceManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
