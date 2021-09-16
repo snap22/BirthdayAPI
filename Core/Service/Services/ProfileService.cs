@@ -22,6 +22,7 @@ namespace BirthdayAPI.Core.Service.Services
         public async Task<ProfileDto> CreateProfile(ProfileDto profile)
         {
             ThrowErrorIfProfileWithUsernameExists(profile.Username);
+            ThrowErrorIfAccountIdAlreadyUsed(profile.AccountId);
 
             var newProfile = _mapper.Map<Profile>(profile);
 
@@ -67,6 +68,10 @@ namespace BirthdayAPI.Core.Service.Services
             {
                 ThrowErrorIfProfileWithUsernameExists(profile.Username);
             }
+            if (existingProfile.AccountId != profile.AccountId)
+            {
+                ThrowErrorIfAccountIdAlreadyUsed(profile.AccountId);
+            }
             _mapper.Map(profile, existingProfile);
             await _repository.UnitOfWork.CompleteAsync();
             return _mapper.Map<ProfileDto>(existingProfile);
@@ -83,5 +88,18 @@ namespace BirthdayAPI.Core.Service.Services
             if (_repository.ProfileRepository.ProfileWithIdExists(profileId) == false)
                 throw new NotFoundException($"Profile with id: {profileId} doesn't exist!");
         }
+
+        private void ThrowErrorIfAccountIdDoesnotMatch(int accountId)
+        {
+            if (_repository.ProfileRepository.GetProfileByAccountId(accountId).AccountId != accountId)
+                throw new BadRequestException($"Account with id: {accountId} already has a profile!");
+        }
+
+        private void ThrowErrorIfAccountIdAlreadyUsed(int accountId)
+        {
+            if (_repository.ProfileRepository.GetProfileByAccountId(accountId) != null)
+                throw new BadRequestException($"Account with id: {accountId} already has a profile!");
+        }
+        
     }
 }
