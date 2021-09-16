@@ -21,5 +21,11 @@ namespace BirthdayAPI.Core.Service.Repositories
         public IAccountRepository AccountRepository => _lazyAccountRepository.Value;
         public IProfileRepository ProfileRepository => _lazyProfileRepository.Value;
         public IUnitOfWork UnitOfWork => _lazyUnitOfWork.Value;
+
+        public IContactRepository ContactRepository => throw new NotImplementedException();
+
+        public IGiftRepository GiftRepository => throw new NotImplementedException();
+
+        public INoteRepository NoteRepository => throw new NotImplementedException();
     }
 }
