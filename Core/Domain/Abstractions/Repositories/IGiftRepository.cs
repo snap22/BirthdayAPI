@@ -8,7 +8,7 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
 {
     public interface IGiftRepository
     {
-        Task<IEnumerable<Gift>> GetAllGifts();
+        Task<IEnumerable<Gift>> GetGifts();
         Task<Gift> GetGiftById(int id);
         Task AddGift(Gift newGift);
         void EditGift(Gift gift);
