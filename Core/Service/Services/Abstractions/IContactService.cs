@@ -11,8 +11,8 @@ namespace BirthdayAPI.Core.Service.Services.Abstractions
     {
         Task<ContactDto> GetContact(int profileId, int contactId);
         Task<IEnumerable<ContactDto>> GetContacts(int profileId, ContactParameters parameters);
-        Task<ContactDto> CreateContact(ContactDto contact);
-        Task<ContactDto> UpdateContact(int contactId, ContactDto contact);
-        Task<ContactDto> RemoveContact(int contactId);
+        Task<ContactDto> CreateContact(int profileId, ContactDto contact);
+        Task<ContactDto> UpdateContact(int profileId, int contactId, ContactDto contact);
+        Task<ContactDto> RemoveContact(int profileId, int contactId);
     }
 }
