@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using BirthdayAPI.QueryParameters;
 using System.Linq.Expressions;
 using System;
-using BirthdayAPI.QueryParameters.Sorting;
+using BirthdayAPI.Core.Service.Query.Sorting;
+using BirthdayAPI.Core.Service.Query.Parameters;
 
 namespace BirthdayAPI.Core.Service.Repositories
 {

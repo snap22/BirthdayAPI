@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BirthdayAPI.Core.Domain.Abstractions.Repositories;
-using BirthdayAPI.QueryParameters.Sorting;
+using BirthdayAPI.Core.Service.Query.Sorting;
 
 namespace BirthdayAPI.Core.Service.Repositories
 {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
-namespace BirthdayAPI.QueryParameters.Sorting
+namespace BirthdayAPI.Core.Service.Query.Sorting
 {
     public interface ISortHelper<T> where T : class
     {

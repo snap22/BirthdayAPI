@@ -1,6 +1,6 @@
 ﻿
 
-namespace BirthdayAPI.QueryParameters
+namespace BirthdayAPI.Core.Service.Query.Parameters
 {
     public abstract class QueryStringParameters
     {

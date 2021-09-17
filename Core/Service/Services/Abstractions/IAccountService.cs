@@ -1,5 +1,5 @@
 ﻿using BirthdayAPI.Core.Service.DTOs;
-using BirthdayAPI.QueryParameters;
+using BirthdayAPI.Core.Service.Query.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;

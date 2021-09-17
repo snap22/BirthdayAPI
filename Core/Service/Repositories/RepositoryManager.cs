@@ -3,7 +3,7 @@ using BirthdayAPI.Core.Domain.Abstractions.Units;
 using BirthdayAPI.Core.Domain.Entities;
 using BirthdayAPI.Core.Service.Units;
 using BirthdayAPI.Infrastructure.Persistence.Context;
-using BirthdayAPI.QueryParameters.Sorting;
+using BirthdayAPI.Core.Service.Query.Sorting;
 using System;
 
 namespace BirthdayAPI.Core.Service.Repositories

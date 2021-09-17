@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BirthdayAPI.QueryParameters
+namespace BirthdayAPI.Core.Service.Query.Parameters
 {
 
     public class AccountParameters : QueryStringParameters

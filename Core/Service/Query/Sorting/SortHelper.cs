@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using BindingFlags = System.Reflection.BindingFlags;
 
-namespace BirthdayAPI.QueryParameters.Sorting
+namespace BirthdayAPI.Core.Service.Query.Sorting
 {
     public class SortHelper<T> : ISortHelper<T> where T : class
     {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BirthdayAPI.Core.Service.Services.Abstractions;
 using BirthdayAPI.Core.Domain.Exceptions;
-using BirthdayAPI.QueryParameters;
+using BirthdayAPI.Core.Service.Query.Parameters;
 
 namespace BirthdayAPI.Core.Service.Services
 {

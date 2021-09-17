@@ -24,7 +24,7 @@ using BirthdayAPI.Infrastructure.Middlewares;
 using BirthdayAPI.Infrastructure.Filters;
 using FluentValidation.AspNetCore;
 using FluentValidation;
-using BirthdayAPI.QueryParameters.Sorting;
+using BirthdayAPI.Core.Service.Query.Sorting;
 
 namespace BirthdayAPI
 {

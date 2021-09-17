@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BirthdayAPI.Core.Service.Services.Abstractions;
 using BirthdayAPI.Core.Service.DTOs;
-using BirthdayAPI.QueryParameters;
+using BirthdayAPI.Core.Service.Query.Parameters;
 
 namespace BirthdayAPI.Controllers
 {
