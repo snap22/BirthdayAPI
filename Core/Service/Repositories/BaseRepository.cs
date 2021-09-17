@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using BirthdayAPI.QueryParameters;
 
 namespace BirthdayAPI.Core.Service.Repositories
 {
@@ -37,7 +39,14 @@ namespace BirthdayAPI.Core.Service.Repositories
         {
             _context.Set<T>().Remove(entity);
         }
-        
+
+        protected async Task<IEnumerable<T>> GetPagedResult(IQueryable<T> source, QueryStringParameters parameters)
+        {
+            return await source
+                .Skip((parameters.Page - 1) * (parameters.PageSize))
+                .Take(parameters.PageSize)
+                .ToListAsync();
+        }
 
     }
 }
