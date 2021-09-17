@@ -1,4 +1,5 @@
 ﻿using BirthdayAPI.Core.Service.DTOs;
+using BirthdayAPI.Core.Service.Query.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace BirthdayAPI.Core.Service.Services.Abstractions
     public interface IProfileService
     {
         Task<ProfileDto> GetProfile(int profileId);
-        Task<IEnumerable<ProfileDto>> GetProfiles();
+        Task<IEnumerable<ProfileDto>> GetProfiles(ProfileParameters parameters);
         Task<ProfileDto> CreateProfile(ProfileDto profile);
         Task<ProfileDto> UpdateProfile(int profileId, ProfileDto profile);
         Task<ProfileDto> RemoveProfile(int profileId);

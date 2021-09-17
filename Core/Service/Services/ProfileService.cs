@@ -2,6 +2,7 @@
 using BirthdayAPI.Core.Domain.Abstractions.Repositories;
 using BirthdayAPI.Core.Domain.Exceptions;
 using BirthdayAPI.Core.Service.DTOs;
+using BirthdayAPI.Core.Service.Query.Parameters;
 using BirthdayAPI.Core.Service.Services.Abstractions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -39,9 +40,9 @@ namespace BirthdayAPI.Core.Service.Services
             return _mapper.Map<ProfileDto>(foundProfile);
         }
 
-        public async Task<IEnumerable<ProfileDto>> GetProfiles()
+        public async Task<IEnumerable<ProfileDto>> GetProfiles(ProfileParameters parameters)
         {
-            return _mapper.Map<IEnumerable<ProfileDto>>(await _repository.ProfileRepository.GetAllProfiles());
+            return _mapper.Map<IEnumerable<ProfileDto>>(await _repository.ProfileRepository.GetAllProfiles(parameters));
         }
 
         public async Task<ProfileDto> RemoveProfile(int profileId)

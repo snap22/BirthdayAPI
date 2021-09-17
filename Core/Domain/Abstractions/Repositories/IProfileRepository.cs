@@ -1,4 +1,5 @@
 ﻿using BirthdayAPI.Core.Domain.Entities;
+using BirthdayAPI.Core.Service.Query.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
 {
     public interface IProfileRepository
     {
-        Task<IEnumerable<Profile>> GetAllProfiles();
+        Task<IEnumerable<Profile>> GetAllProfiles(ProfileParameters parameters);
         Task<Profile> GetProfileById(int id);
         Profile GetProfileByAccountId(int accountId);
         Task AddProfile(Profile newprofile);

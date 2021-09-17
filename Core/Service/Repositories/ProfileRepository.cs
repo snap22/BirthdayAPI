@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BirthdayAPI.Core.Domain.Abstractions.Repositories;
 using BirthdayAPI.Core.Service.Query.Sorting;
+using BirthdayAPI.Core.Service.Query.Parameters;
 
 namespace BirthdayAPI.Core.Service.Repositories
 {
@@ -26,7 +27,7 @@ namespace BirthdayAPI.Core.Service.Repositories
             base.Edit(profile);
         }
 
-        public async Task<IEnumerable<Profile>> GetAllProfiles()
+        public async Task<IEnumerable<Profile>> GetAllProfiles(ProfileParameters parameters)
         {
             return await base.GetAll();
         }

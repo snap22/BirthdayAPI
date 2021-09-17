@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BirthdayAPI.Core.Service.DTOs;
+using BirthdayAPI.Core.Service.Query.Parameters;
 using BirthdayAPI.Core.Service.Services.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,9 +26,9 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
 
         // GET: api/Profiles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProfileDto>>> GetProfiles()
+        public async Task<ActionResult<IEnumerable<ProfileDto>>> GetProfiles([FromQuery] ProfileParameters profileParameters)
         {
-            return Ok(await _service.ProfileService.GetProfiles());
+            return Ok(await _service.ProfileService.GetProfiles(profileParameters));
         }
 
         // GET: api/Profiles/5
