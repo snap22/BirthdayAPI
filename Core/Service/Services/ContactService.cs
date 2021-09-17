@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using BirthdayAPI.Core.Domain.Abstractions.Repositories;
+using BirthdayAPI.Core.Domain.Entities;
+using BirthdayAPI.Core.Domain.Exceptions;
 using BirthdayAPI.Core.Service.DTOs;
 using BirthdayAPI.Core.Service.Query.Parameters;
 using BirthdayAPI.Core.Service.Services.Abstractions;
@@ -14,29 +16,81 @@ namespace BirthdayAPI.Core.Service.Services
     {
         public ContactService(IRepositoryManager repository, IMapper mapper) : base(repository, mapper) { }
         
-        public Task<ContactDto> CreateContact(ContactDto contact)
+        public async Task<ContactDto> CreateContact(int profileId, ContactDto contact)
         {
-            throw new NotImplementedException();
+            ThrowErrorIfProfileDoesntExist(contact.ProfileId);
+            ThrowErrorIfProfilesNotTheSame(profileId, contact.ProfileId);
+
+            var newContact = _mapper.Map<Contact>(contact);
+            await _repository.ContactRepository.AddContact(newContact);
+            await _repository.UnitOfWork.CompleteAsync();
+            return contact;
         }
 
-        public Task<ContactDto> GetContact(int ContactId)
+        public async Task<ContactDto> GetContact(int profileId, int contactId)
         {
-            throw new NotImplementedException();
+            ThrowErrorIfProfileDoesntExist(profileId);
+            ThrowErrorIfContactDoesntExist(contactId);
+
+            var foundContact = await _repository.ContactRepository.GetContactById(contactId);
+            ThrowErrorIfProfilesNotTheSame(profileId, foundContact.ProfileId);
+            return _mapper.Map<ContactDto>(foundContact);
         }
 
-        public Task<IEnumerable<ContactDto>> GetContacts(ContactParameters parameters)
+        public async Task<IEnumerable<ContactDto>> GetContacts(int profileId, ContactParameters parameters)
         {
-            throw new NotImplementedException();
+            ThrowErrorIfProfileDoesntExist(profileId);
+            var foundContacts = await _repository.ContactRepository.GetContactsOfProfile(profileId, parameters);
+            return _mapper.Map<IEnumerable<ContactDto>>(foundContacts);
         }
 
-        public Task<ContactDto> RemoveContact(int contactId)
+        public async Task<ContactDto> RemoveContact(int profileId, int contactId)
         {
-            throw new NotImplementedException();
+            ThrowErrorIfProfileDoesntExist(profileId);
+            ThrowErrorIfContactDoesntExist(contactId);
+
+            var foundConctact = await _repository.ContactRepository.GetContactById(contactId);
+            ThrowErrorIfProfilesNotTheSame(profileId, foundConctact.ProfileId);
+            _repository.ContactRepository.RemoveContact(foundConctact);
+            await _repository.UnitOfWork.CompleteAsync();
+            return _mapper.Map<ContactDto>(foundConctact);
         }
 
-        public Task<ContactDto> UpdateContact(int contactId, ContactDto contact)
+        public async Task<ContactDto> UpdateContact(int profileId, int contactId, ContactDto contact)
         {
-            throw new NotImplementedException();
+            ThrowErrorIfProfileDoesntExist(profileId);
+            ThrowErrorIfContactDoesntExist(contactId);
+
+            var existingContact = await _repository.ContactRepository.GetContactById(contactId);
+            ThrowErrorIfProfilesNotTheSame(profileId, existingContact.ProfileId);
+
+            if (existingContact.ProfileId != contact.ProfileId)
+            {
+                throw new BadRequestException("Cannot change profile of a contact!");
+            }
+
+            _mapper.Map(contact, existingContact);
+            _repository.ContactRepository.EditContact(existingContact);
+            await _repository.UnitOfWork.CompleteAsync();
+
+            return _mapper.Map<ContactDto>(existingContact); 
+        }
+
+        private void ThrowErrorIfProfileDoesntExist(int profileId)
+        {
+            if (_repository.ProfileRepository.ProfileWithIdExists(profileId))
+                throw new NotFoundException($"Profile with id: {profileId} does not exist!");
+        }
+
+        private void ThrowErrorIfContactDoesntExist(int contactId)
+        {
+            if (_repository.ContactRepository.ContactWithIdExists(contactId))
+                throw new NotFoundException($"Contact with id: {contactId} does not exist!");
+        }
+        private void ThrowErrorIfProfilesNotTheSame(int profileId1, int profileId2)
+        {
+            if (profileId1 != profileId2)
+                throw new BadRequestException("Contact does not belong to this profile!");
         }
     }
 }
