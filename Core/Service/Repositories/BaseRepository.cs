@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using BirthdayAPI.QueryParameters;
+using System.Linq.Expressions;
+using System;
 
 namespace BirthdayAPI.Core.Service.Repositories
 {
@@ -48,5 +50,12 @@ namespace BirthdayAPI.Core.Service.Repositories
                 .ToListAsync();
         }
 
+        protected IQueryable<T> FilterByCondition(Expression<Func<T, bool>> expression)
+        {
+            return _context.Set<T>()
+                .Where(expression)
+                .AsNoTracking();    // Read Only
+
+        }
     }
 }
