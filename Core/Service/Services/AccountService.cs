@@ -42,6 +42,9 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<IEnumerable<AccountDto>> GetAccounts(AccountParameters parameters)
         {
+            if (parameters.IsValidYearRange() == false)
+                throw new BadRequestException("Parameters for Minimal year and Maximal year are not valid!");
+
             var foundAccounts = await _repository.AccountRepository.GetAccounts(parameters);
             return _mapper.Map<IEnumerable<AccountDto>>(foundAccounts);
         }
