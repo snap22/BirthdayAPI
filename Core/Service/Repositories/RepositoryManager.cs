@@ -1,7 +1,9 @@
 ﻿using BirthdayAPI.Core.Domain.Abstractions.Repositories;
 using BirthdayAPI.Core.Domain.Abstractions.Units;
+using BirthdayAPI.Core.Domain.Entities;
 using BirthdayAPI.Core.Service.Units;
 using BirthdayAPI.Infrastructure.Persistence.Context;
+using BirthdayAPI.QueryParameters.Sorting;
 using System;
 
 namespace BirthdayAPI.Core.Service.Repositories
@@ -12,10 +14,18 @@ namespace BirthdayAPI.Core.Service.Repositories
         private readonly Lazy<IProfileRepository> _lazyProfileRepository;
         private readonly Lazy<IUnitOfWork> _lazyUnitOfWork;
 
-        public RepositoryManager(ApplicationDbContext context)
+        
+
+        public RepositoryManager(ApplicationDbContext context,
+            ISortHelper<Account> accountSortHelper,
+            ISortHelper<Profile> profileSortHelper,
+            ISortHelper<Contact> contactSortHelper,
+            ISortHelper<Gift> giftSortHelper,
+            ISortHelper<Note> noteSortHelper
+            )
         {
-            _lazyAccountRepository = new Lazy<IAccountRepository>(() => new AccountRepository(context));
-            _lazyProfileRepository = new Lazy<IProfileRepository>(() => new ProfileRepository(context));
+            _lazyAccountRepository = new Lazy<IAccountRepository>(() => new AccountRepository(context, accountSortHelper));
+            _lazyProfileRepository = new Lazy<IProfileRepository>(() => new ProfileRepository(context, profileSortHelper));
             _lazyUnitOfWork = new Lazy<IUnitOfWork>(() => new SaveUnit(context));
         }
         public IAccountRepository AccountRepository => _lazyAccountRepository.Value;

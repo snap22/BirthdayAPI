@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BirthdayAPI.Core.Domain.Abstractions.Repositories;
+using BirthdayAPI.QueryParameters.Sorting;
 
 namespace BirthdayAPI.Core.Service.Repositories
 {
     public class ProfileRepository : BaseRepository<Profile>, IProfileRepository
     {
-        public ProfileRepository(ApplicationDbContext context) : base(context)
+        public ProfileRepository(ApplicationDbContext context, ISortHelper<Profile> sortHelper) : base(context, sortHelper)
         {
 
         }

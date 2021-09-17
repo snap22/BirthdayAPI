@@ -7,12 +7,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using BirthdayAPI.Core.Domain.Abstractions.Repositories;
 using BirthdayAPI.QueryParameters;
+using BirthdayAPI.QueryParameters.Sorting;
 
 namespace BirthdayAPI.Core.Service.Repositories
 {
     public class AccountRepository : BaseRepository<Account>, IAccountRepository
     {
-        public AccountRepository(ApplicationDbContext context) : base(context)
+        public AccountRepository(ApplicationDbContext context, ISortHelper<Account> sortHelper) : base(context, sortHelper)
         {
 
         }
@@ -47,6 +48,7 @@ namespace BirthdayAPI.Core.Service.Repositories
                 (acc.DateCreated.Year <= parameters.MaxYearOfCreation));
 
             ReduceQueryByEmail(ref filteredAccounts, parameters.EmailAddress);
+            filteredAccounts = _sortHelper.ApplySort(filteredAccounts, parameters.OrderBy);
 
             return await base.GetPagedResult(filteredAccounts, parameters);
         }
