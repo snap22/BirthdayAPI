@@ -18,5 +18,6 @@ namespace BirthdayAPI.QueryParameters
                 _pageSize = (value > MAX_PAGE_SIZE || value <= 0) ? MAX_PAGE_SIZE : value;
             }
         }
+        public string OrderBy { get; set; }
     }
 }
