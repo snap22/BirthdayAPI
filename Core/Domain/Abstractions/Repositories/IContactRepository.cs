@@ -10,7 +10,6 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
     {
         Task<IEnumerable<Contact>> GetAllContacts();
         Task<Contact> GetContactById(int id);
-        Task<IEnumerable<Contact>> GetSpecificContacts();
         Task AddContact(Contact newContact);
         void EditContact(Contact contact);
         void RemoveContact(Contact contact);

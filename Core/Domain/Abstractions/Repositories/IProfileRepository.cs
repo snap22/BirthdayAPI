@@ -11,7 +11,6 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
         Task<IEnumerable<Profile>> GetAllProfiles();
         Task<Profile> GetProfileById(int id);
         Profile GetProfileByAccountId(int accountId);
-        Task<IEnumerable<Profile>> GetSpecificProfiles();
         Task AddProfile(Profile newprofile);
         void EditProfile(Profile profile);
         void RemoveProfile(Profile profile);

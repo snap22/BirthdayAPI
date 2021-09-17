@@ -33,13 +33,6 @@ namespace BirthdayAPI.Core.Service.Repositories
             return await base.GetById(id);
         }
 
-        public async Task<IEnumerable<Account>> GetSpecificAccounts()
-        {
-            // TODO: hladat podla nazvu / emailu, resp. zoradenie podla nazvu / datumu vytvorenia uctu...
-            return await _context.Accounts
-                .ToListAsync();
-        }
-
         public async Task<IEnumerable<Account>> GetAccounts(AccountParameters parameters)
         {
 

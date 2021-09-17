@@ -42,11 +42,6 @@ namespace BirthdayAPI.Core.Service.Repositories
                 .SingleOrDefault(p => p.AccountId == accountId);
         }
 
-        public async Task<IEnumerable<Profile>> GetSpecificProfiles()
-        {
-            return await base.GetAll();
-        }
-
         public bool ProfileWithIdExists(int profileId)
         {
             return _context.Profiles.Any(p => p.ProfileId == profileId);

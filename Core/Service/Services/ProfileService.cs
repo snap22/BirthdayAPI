@@ -44,11 +44,6 @@ namespace BirthdayAPI.Core.Service.Services
             return _mapper.Map<IEnumerable<ProfileDto>>(await _repository.ProfileRepository.GetAllProfiles());
         }
 
-        public async Task<IEnumerable<ProfileDto>> GetSpecificProfiles()
-        {
-            return await GetProfiles();
-        }
-
         public async Task<ProfileDto> RemoveProfile(int profileId)
         {
             ThrowErrorIfProfileDoesntExist(profileId);

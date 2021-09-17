@@ -10,7 +10,6 @@ namespace BirthdayAPI.Core.Service.Services.Abstractions
     {
         Task<ProfileDto> GetProfile(int profileId);
         Task<IEnumerable<ProfileDto>> GetProfiles();
-        Task<IEnumerable<ProfileDto>> GetSpecificProfiles();
         Task<ProfileDto> CreateProfile(ProfileDto profile);
         Task<ProfileDto> UpdateProfile(int profileId, ProfileDto profile);
         Task<ProfileDto> RemoveProfile(int profileId);

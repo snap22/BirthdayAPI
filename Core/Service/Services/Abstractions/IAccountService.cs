@@ -11,7 +11,6 @@ namespace BirthdayAPI.Core.Service.Services.Abstractions
     {
         Task<AccountDto> GetAccount(int accountId);
         Task<IEnumerable<AccountDto>> GetAccounts(AccountParameters parameters);
-        Task<IEnumerable<AccountDto>> GetSpecificAccounts();
         Task<AccountDto> CreateAccount(AccountDto account);
         Task<AccountDto> UpdateAccount(int accountId, AccountDto account);
         Task<AccountDto> RemoveAccount(int accountId);

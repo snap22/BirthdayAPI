@@ -10,7 +10,6 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
     {
         Task<IEnumerable<Note>> GetAllNotes();
         Task<Note> GetNoteById(int id);
-        Task<IEnumerable<Note>> GetSpecificNotes();
         Task AddNote(Note newNote);
         void EditNote(Note note);
         void RemoveNote(Note note);

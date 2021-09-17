@@ -49,12 +49,6 @@ namespace BirthdayAPI.Core.Service.Services
             return _mapper.Map<IEnumerable<AccountDto>>(foundAccounts);
         }
 
-        public async Task<IEnumerable<AccountDto>> GetSpecificAccounts()
-        {
-            var foundAccounts = await _repository.AccountRepository.GetSpecificAccounts();
-            return _mapper.Map<IEnumerable<AccountDto>>(foundAccounts);
-        }
-
         public async Task<AccountDto> RemoveAccount(int accountId)
         {
             ThrowErrorIfAccountDoesntExist(accountId);
