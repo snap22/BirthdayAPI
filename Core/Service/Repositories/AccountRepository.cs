@@ -72,7 +72,7 @@ namespace BirthdayAPI.Core.Service.Repositories
                 return;
 
             accounts = accounts.
-                Where(acc => acc.Email.ToLower().Contains(email));
+                Where(acc => acc.Email.ToLower().Contains(email.ToLower()));
         }
     }
 }
