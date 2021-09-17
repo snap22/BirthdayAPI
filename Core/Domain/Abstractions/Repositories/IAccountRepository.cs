@@ -1,4 +1,5 @@
 ﻿using BirthdayAPI.Core.Domain.Entities;
+using BirthdayAPI.QueryParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
 {
     public interface IAccountRepository
     {
-        Task<IEnumerable<Account>> GetAllAccounts();
+        Task<IEnumerable<Account>> GetAccounts(AccountParameters parameters);
         Task<Account> GetAccountById(int id);
         Task<IEnumerable<Account>> GetSpecificAccounts();
         Task AddAccount(Account newAccount);
