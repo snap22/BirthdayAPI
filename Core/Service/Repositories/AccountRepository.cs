@@ -41,7 +41,14 @@ namespace BirthdayAPI.Core.Service.Repositories
 
         public async Task<IEnumerable<Account>> GetAccounts(AccountParameters parameters)
         {
-            return await base.GetPagedResult(_context.Accounts, parameters);
+
+            var filteredAccounts = base.FilterByCondition(acc =>
+                (acc.DateCreated.Year >= parameters.MinYearOfCreation) &&
+                (acc.DateCreated.Year <= parameters.MaxYearOfCreation));
+
+            ReduceQueryByEmail(ref filteredAccounts, parameters.EmailAddress);
+
+            return await base.GetPagedResult(filteredAccounts, parameters);
         }
 
         public async Task<IEnumerable<Account>> GetAccounts()
@@ -64,6 +71,13 @@ namespace BirthdayAPI.Core.Service.Repositories
             return _context.Accounts.Any(x => x.Email == email);
         }
 
-        
+        private void ReduceQueryByEmail(ref IQueryable<Account> accounts, string email)
+        {
+            if (accounts.Any() == false || string.IsNullOrWhiteSpace(email))
+                return;
+
+            accounts = accounts.
+                Where(acc => acc.Email.ToLower().Contains(email));
+        }
     }
 }
