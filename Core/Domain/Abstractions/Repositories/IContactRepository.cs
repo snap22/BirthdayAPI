@@ -9,7 +9,8 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
 {
     public interface IContactRepository
     {
-        Task<IEnumerable<Contact>> GetContacts(ContactParameters parameters);
+        Task<IEnumerable<Contact>> GetAllContacts(ContactParameters parameters);
+        Task<IEnumerable<Contact>> GetContactsOfProfile(int profileId, ContactParameters parameters);
         Task<Contact> GetContactById(int id);
         Task AddContact(Contact newContact);
         void EditContact(Contact contact);
