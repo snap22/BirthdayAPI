@@ -63,6 +63,7 @@ namespace BirthdayAPI.Core.Service.Services
                 ThrowErrorIfAccountIdAlreadyUsed(profile.AccountId);
             }
             _mapper.Map(profile, existingProfile);
+            _repository.ProfileRepository.EditProfile(existingProfile);
             await _repository.UnitOfWork.CompleteAsync();
             return _mapper.Map<ProfileDto>(existingProfile);
         }
