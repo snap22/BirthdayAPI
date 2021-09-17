@@ -1,4 +1,5 @@
 ﻿using BirthdayAPI.Core.Domain.Entities;
+using BirthdayAPI.Core.Service.Query.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
 {
     public interface IContactRepository
     {
-        Task<IEnumerable<Contact>> GetAllContacts();
+        Task<IEnumerable<Contact>> GetContacts(ContactParameters parameters);
         Task<Contact> GetContactById(int id);
         Task AddContact(Contact newContact);
         void EditContact(Contact contact);
