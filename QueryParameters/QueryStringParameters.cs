@@ -5,7 +5,7 @@ namespace BirthdayAPI.QueryParameters
     public abstract class QueryStringParameters
     {
         const int MAX_PAGE_SIZE = 50;
-        private int _pageSize = 10;
+        private int _pageSize = 20;
         public int Page { get; set; } = 1;
         public int PageSize
         {
