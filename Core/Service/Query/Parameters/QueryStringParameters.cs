@@ -5,8 +5,22 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
     public abstract class QueryStringParameters
     {
         const int MAX_PAGE_SIZE = 50;
-        private int _pageSize = 20;
-        public int Page { get; set; } = 1;
+        const int DEFAULT_PAGE = 1;
+        const int DEFAULT_PAGE_SIZE = 10;
+
+        private int _pageSize = DEFAULT_PAGE_SIZE;
+        private int _page = DEFAULT_PAGE;
+        public int Page
+        { 
+            get
+            {
+                return _page;
+            }
+            set
+            {
+                _page = (value > 0) ? value : DEFAULT_PAGE;
+            }
+        } 
         public int PageSize
         {
             get
@@ -15,7 +29,7 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
             }
             set
             {
-                _pageSize = (value > MAX_PAGE_SIZE || value <= 0) ? MAX_PAGE_SIZE : value;
+                _pageSize = (value > MAX_PAGE_SIZE || value <= 0) ? DEFAULT_PAGE_SIZE : value;
             }
         }
         public string OrderBy { get; set; }
