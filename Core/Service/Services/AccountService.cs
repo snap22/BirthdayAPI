@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BirthdayAPI.Core.Service.Services.Abstractions;
 using BirthdayAPI.Core.Domain.Exceptions;
+using BirthdayAPI.QueryParameters;
 
 namespace BirthdayAPI.Core.Service.Services
 {
@@ -39,9 +40,9 @@ namespace BirthdayAPI.Core.Service.Services
             return _mapper.Map<AccountDto>(foundAccount);
         }
 
-        public async Task<IEnumerable<AccountDto>> GetAccounts()
+        public async Task<IEnumerable<AccountDto>> GetAccounts(AccountParameters parameters)
         {
-            var foundAccounts = await _repository.AccountRepository.GetAllAccounts();
+            var foundAccounts = await _repository.AccountRepository.GetAccounts(parameters);
             return _mapper.Map<IEnumerable<AccountDto>>(foundAccounts);
         }
 
