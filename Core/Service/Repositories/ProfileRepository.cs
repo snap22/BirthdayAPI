@@ -29,7 +29,10 @@ namespace BirthdayAPI.Core.Service.Repositories
 
         public async Task<IEnumerable<Profile>> GetAllProfiles(ProfileParameters parameters)
         {
-            return await base.GetAll();
+            IQueryable<Profile> profiles = _context.Profiles;
+            ReduceQueryByUsername(ref profiles, parameters.Username);
+            profiles = _sortHelper.ApplySort(profiles, parameters.OrderBy);
+            return await GetPagedResult(profiles, parameters);
         }
 
         public async Task<Profile> GetProfileById(int id)
@@ -56,6 +59,14 @@ namespace BirthdayAPI.Core.Service.Repositories
         public void RemoveProfile(Profile profile)
         {
             base.Remove(profile);
+        }
+
+        private void ReduceQueryByUsername(ref IQueryable<Profile> profiles, string username)
+        {
+            if (profiles.Any() == false || string.IsNullOrWhiteSpace(username))
+                return;
+
+            profiles = profiles.Where(p => p.Username.ToLower().Contains(username.ToLower()));
         }
     }
 }
