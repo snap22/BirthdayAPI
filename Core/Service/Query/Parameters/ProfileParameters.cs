@@ -7,5 +7,10 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
 {
     public class ProfileParameters : QueryStringParameters
     {
+        public ProfileParameters()
+        {
+            OrderBy = "ProfileId";
+        }
+        public string Username { get; set; }
     }
 }
