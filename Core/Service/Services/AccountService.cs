@@ -10,17 +10,10 @@ using BirthdayAPI.Core.Service.Query.Parameters;
 
 namespace BirthdayAPI.Core.Service.Services
 {
-    public class AccountService : IAccountService
+    public class AccountService : BaseService, IAccountService
     {
-        private readonly IRepositoryManager _repository;
-        private readonly IMapper _mapper;
-        
 
-        public AccountService(IRepositoryManager repository, IMapper mapper)
-        {
-            _repository = repository;
-            _mapper = mapper;
-        }
+        public AccountService(IRepositoryManager repository, IMapper mapper) : base(repository, mapper) { }
         public async Task<AccountDto> CreateAccount(AccountDto account)
         {
             ThrowErrorIfEmailAlreadyUsed(account.Email);

@@ -1,4 +1,6 @@
-﻿using BirthdayAPI.Core.Service.DTOs;
+﻿using AutoMapper;
+using BirthdayAPI.Core.Domain.Abstractions.Repositories;
+using BirthdayAPI.Core.Service.DTOs;
 using BirthdayAPI.Core.Service.Query.Parameters;
 using BirthdayAPI.Core.Service.Services.Abstractions;
 using System;
@@ -8,8 +10,10 @@ using System.Threading.Tasks;
 
 namespace BirthdayAPI.Core.Service.Services
 {
-    public class ContactService : IContactService
+    public class ContactService : BaseService, IContactService
     {
+        public ContactService(IRepositoryManager repository, IMapper mapper) : base(repository, mapper) { }
+        
         public Task<ContactDto> CreateContact(ContactDto contact)
         {
             throw new NotImplementedException();

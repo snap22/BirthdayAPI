@@ -10,16 +10,10 @@ using Profile = BirthdayAPI.Core.Domain.Entities.Profile;
 
 namespace BirthdayAPI.Core.Service.Services
 {
-    public class ProfileService : IProfileService
+    public class ProfileService : BaseService, IProfileService
     {
-        private readonly IRepositoryManager _repository;
-        private readonly IMapper _mapper;
-
-        public ProfileService(IRepositoryManager repository, IMapper mapper)
-        {
-            _repository = repository;
-            _mapper = mapper;
-        }
+        public ProfileService(IRepositoryManager repository, IMapper mapper) : base(repository, mapper) { }
+        
         public async Task<ProfileDto> CreateProfile(ProfileDto profile)
         {
             ThrowErrorIfProfileWithUsernameExists(profile.Username);
