@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BirthdayAPI.Core.Service.Services.Abstractions;
 using BirthdayAPI.Core.Service.DTOs;
+using BirthdayAPI.QueryParameters;
 
 namespace BirthdayAPI.Controllers
 {
@@ -21,9 +22,9 @@ namespace BirthdayAPI.Controllers
 
         // GET: api/Accounts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AccountDto>>> GetAccounts()
+        public async Task<ActionResult<IEnumerable<AccountDto>>> GetAccounts([FromQuery] AccountParameters accountParameters)
         {
-            return Ok(await _service.AccountService.GetAccounts());
+            return Ok(await _service.AccountService.GetAccounts(accountParameters));
         }
 
         // GET: api/Accounts/5
