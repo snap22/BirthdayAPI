@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BirthdayAPI.Core.Domain.Abstractions.Repositories;
+using BirthdayAPI.QueryParameters;
 
 namespace BirthdayAPI.Core.Service.Repositories
 {
@@ -38,7 +39,12 @@ namespace BirthdayAPI.Core.Service.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Account>> GetAllAccounts()
+        public async Task<IEnumerable<Account>> GetAccounts(AccountParameters parameters)
+        {
+            return await base.GetPagedResult(_context.Accounts, parameters);
+        }
+
+        public async Task<IEnumerable<Account>> GetAccounts()
         {
             return await base.GetAll();
         }
@@ -57,5 +63,7 @@ namespace BirthdayAPI.Core.Service.Repositories
         {
             return _context.Accounts.Any(x => x.Email == email);
         }
+
+        
     }
 }
