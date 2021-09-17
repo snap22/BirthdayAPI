@@ -24,6 +24,7 @@ using BirthdayAPI.Infrastructure.Middlewares;
 using BirthdayAPI.Infrastructure.Filters;
 using FluentValidation.AspNetCore;
 using FluentValidation;
+using BirthdayAPI.QueryParameters.Sorting;
 
 namespace BirthdayAPI
 {
@@ -73,7 +74,7 @@ namespace BirthdayAPI
 
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IServiceManager, ServiceManager>();
-
+            services.AddScoped(typeof(ISortHelper<>), typeof(SortHelper<>));
 
             // Exception handling middleware
 
