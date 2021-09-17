@@ -6,16 +6,19 @@ using System.Linq;
 using BirthdayAPI.QueryParameters;
 using System.Linq.Expressions;
 using System;
+using BirthdayAPI.QueryParameters.Sorting;
 
 namespace BirthdayAPI.Core.Service.Repositories
 {
     public abstract class BaseRepository<T> where T : class
     {
         protected readonly ApplicationDbContext _context;
+        protected readonly ISortHelper<T> _sortHelper;
 
-        public BaseRepository(ApplicationDbContext context)
+        public BaseRepository(ApplicationDbContext context, ISortHelper<T> sortHelper)
         {
             this._context = context;
+            this._sortHelper = sortHelper;
         }
 
         public virtual async Task<T> GetById(int id)
