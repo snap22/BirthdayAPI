@@ -36,9 +36,18 @@ namespace BirthdayAPI.Core.Service.Repositories
             return await base.GetById(id);
         }
 
-        public async Task<IEnumerable<Contact>> GetContacts(ContactParameters parameters)
+        public async Task<IEnumerable<Contact>> GetAllContacts(ContactParameters parameters)
         {
             var filteredContacts = base.FilterByCondition(c => (c.Date.Month >= parameters.MinMonth && c.Date.Month <= parameters.MaxMonth));
+            ReduceQueryByName(ref filteredContacts, parameters.Name);
+            filteredContacts = _sortHelper.ApplySort(filteredContacts, parameters.OrderBy);
+            return await base.GetPagedResult(filteredContacts, parameters);
+        }
+
+        public async Task<IEnumerable<Contact>> GetContactsOfProfile(int profileId, ContactParameters parameters)
+        {
+            var filteredContacts = base.FilterByCondition(c => (c.Date.Month >= parameters.MinMonth && c.Date.Month <= parameters.MaxMonth));
+            filteredContacts = filteredContacts.Where(c => c.ProfileId == profileId);
             ReduceQueryByName(ref filteredContacts, parameters.Name);
             filteredContacts = _sortHelper.ApplySort(filteredContacts, parameters.OrderBy);
             return await base.GetPagedResult(filteredContacts, parameters);
