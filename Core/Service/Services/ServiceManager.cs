@@ -12,17 +12,20 @@ namespace BirthdayAPI.Core.Service.Services
     {
         private readonly Lazy<IAccountService> _lazyAccountService;
         private readonly Lazy<IProfileService> _lazyProfileService;
+        private readonly Lazy<IContactService> _lazyContactService;
+
 
 
         public ServiceManager(IRepositoryManager repositoryManager, IMapper mapper)
         {
             _lazyAccountService = new Lazy<IAccountService>(() => new AccountService(repositoryManager, mapper));
             _lazyProfileService = new Lazy<IProfileService>(() => new ProfileService(repositoryManager, mapper));
+            _lazyContactService = new Lazy<IContactService>(() => new ContactService(repositoryManager, mapper));
         }
         public IAccountService AccountService => _lazyAccountService.Value;
 
         public IProfileService ProfileService => _lazyProfileService.Value;
 
-        public IContactService ContactService => throw new NotImplementedException();
+        public IContactService ContactService => _lazyContactService.Value;
     }
 }
