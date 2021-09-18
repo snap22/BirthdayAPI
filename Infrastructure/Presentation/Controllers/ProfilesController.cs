@@ -15,7 +15,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
     public class ProfilesController : ControllerBase
     {
         private readonly IServiceManager _service;
-
+        
         public ProfilesController(IServiceManager service)
         {
             _service = service;
