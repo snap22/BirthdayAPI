@@ -60,6 +60,9 @@ namespace BirthdayAPI.Core.Service.Repositories
 
         private void ReduceQueryByName(ref IQueryable<Contact> contacts, string name)
         {
+            if (contacts.Any() == false || string.IsNullOrWhiteSpace(name))
+                return;
+
             contacts = contacts.Where(c => c.Name.ToLower().Contains(name.ToLower()));
         }
     }
