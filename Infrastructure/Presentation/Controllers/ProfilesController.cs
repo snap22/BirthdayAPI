@@ -21,8 +21,6 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
             _service = service;
         }
 
-        #region Profile
-
 
         // GET: api/Profiles
         [HttpGet]
@@ -65,27 +63,5 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
             return Ok(await _service.ProfileService.RemoveProfile(id));
         }
 
-
-        #endregion Profile
-
-
-        #region Contact
-
-
-
-
-        #endregion Contact
-
-        #region Gift
-
-
-
-        #endregion Gift
-
-        #region Note
-
-
-
-        #endregion Note
     }
 }
