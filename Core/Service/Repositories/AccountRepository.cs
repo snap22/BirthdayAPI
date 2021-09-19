@@ -18,14 +18,14 @@ namespace BirthdayAPI.Core.Service.Repositories
 
         }
 
-        public async Task AddAccount(Account newAccount)
+        public async Task<Account> AddAccount(Account newAccount)
         {
-            await base.Add(newAccount);
+            return await base.Add(newAccount);
         }
 
-        public void EditAccount(Account account)
+        public Account EditAccount(Account account)
         {
-            base.Edit(account);
+            return base.Edit(account);
         }
 
         public async Task<Account> GetAccountById(int id)

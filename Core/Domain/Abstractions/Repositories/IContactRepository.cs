@@ -12,8 +12,8 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
         Task<IEnumerable<Contact>> GetAllContacts(ContactParameters parameters);
         Task<IEnumerable<Contact>> GetContactsOfProfile(int profileId, ContactParameters parameters);
         Task<Contact> GetContactById(int id);
-        Task AddContact(Contact newContact);
-        void EditContact(Contact contact);
+        Task<Contact> AddContact(Contact newContact);
+        Contact EditContact(Contact contact);
         void RemoveContact(Contact contact);
         bool ContactWithIdExists(int contactId);
     }

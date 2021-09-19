@@ -15,14 +15,14 @@ namespace BirthdayAPI.Core.Service.Repositories
         public NoteRepository(ApplicationDbContext context, ISortHelper<Note> sortHelper) : base(context, sortHelper) { }
 
         
-        public async Task AddNote(Note newNote)
+        public async Task<Note> AddNote(Note newNote)
         {
-            await base.Add(newNote);
+            return await base.Add(newNote);
         }
 
-        public void EditNote(Note note)
+        public Note EditNote(Note note)
         {
-            base.Edit(note);
+            return base.Edit(note);
         }
 
         public async Task<Note> GetNoteById(int id)

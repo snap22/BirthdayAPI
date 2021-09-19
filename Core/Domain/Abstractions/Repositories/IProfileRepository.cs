@@ -12,8 +12,8 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
         Task<IEnumerable<Profile>> GetAllProfiles(ProfileParameters parameters);
         Task<Profile> GetProfileById(int id);
         Profile GetProfileByAccountId(int accountId);
-        Task AddProfile(Profile newprofile);
-        void EditProfile(Profile profile);
+        Task<Profile> AddProfile(Profile newprofile);
+        Profile EditProfile(Profile profile);
         void RemoveProfile(Profile profile);
         bool ProfileWithIdExists(int profileId);
         bool ProfileWithUsernameExists(string username);

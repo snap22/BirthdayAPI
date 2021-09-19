@@ -16,9 +16,9 @@ namespace BirthdayAPI.Core.Service.Repositories
         {
 
         }
-        public async Task AddContact(Contact newContact)
+        public async Task<Contact> AddContact(Contact newContact)
         {
-            await base.Add(newContact);
+            return await base.Add(newContact);
         }
 
         public bool ContactWithIdExists(int contactId)
@@ -26,9 +26,9 @@ namespace BirthdayAPI.Core.Service.Repositories
             return _context.Contacts.Any(c => c.ContactId == contactId);
         }
 
-        public void EditContact(Contact contact)
+        public Contact EditContact(Contact contact)
         {
-            base.Edit(contact);
+            return base.Edit(contact);
         }
 
         public async Task<Contact> GetContactById(int id)

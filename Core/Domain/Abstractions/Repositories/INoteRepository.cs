@@ -12,8 +12,8 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
         Task<IEnumerable<Note>> GetNotes(NoteParameters parameters);
         Task<IEnumerable<Note>> GetNotesOfProfile(int profileId, NoteParameters parameters);
         Task<Note> GetNoteById(int id);
-        Task AddNote(Note newNote);
-        void EditNote(Note note);
+        Task<Note> AddNote(Note newNote);
+        Note EditNote(Note note);
         void RemoveNote(Note note);
         bool NoteWithIdExists(int noteId);
     }

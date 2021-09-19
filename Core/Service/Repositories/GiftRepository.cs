@@ -14,14 +14,14 @@ namespace BirthdayAPI.Core.Service.Repositories
     {
         public GiftRepository(ApplicationDbContext context, ISortHelper<Gift> sortHelper) : base(context, sortHelper) { }
 
-        public async Task AddGift(Gift newGift)
+        public async Task<Gift> AddGift(Gift newGift)
         {
-            await base.Add(newGift);
+            return await base.Add(newGift);
         }
 
-        public void EditGift(Gift gift)
+        public Gift EditGift(Gift gift)
         {
-            base.Edit(gift);
+            return base.Edit(gift);
         }
 
         public async Task<Gift> GetGiftById(int id)

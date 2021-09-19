@@ -12,8 +12,8 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
         Task<IEnumerable<Gift>> GetGifts(GiftParameters parameters);
         Task<IEnumerable<Gift>> GetGiftsOfContact(int contactId, GiftParameters parameters);
         Task<Gift> GetGiftById(int id);
-        Task AddGift(Gift newGift);
-        void EditGift(Gift gift);
+        Task<Gift> AddGift(Gift newGift);
+        Gift EditGift(Gift gift);
         void RemoveGift(Gift gift);
         bool GiftWithIdExists(int giftId);
     }

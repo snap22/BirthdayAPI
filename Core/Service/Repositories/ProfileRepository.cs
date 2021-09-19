@@ -17,14 +17,14 @@ namespace BirthdayAPI.Core.Service.Repositories
 
         }
 
-        public async Task AddProfile(Profile newprofile)
+        public async Task<Profile> AddProfile(Profile newprofile)
         {
-            await base.Add(newprofile);
+            return await base.Add(newprofile);
         }
 
-        public void EditProfile(Profile profile)
+        public Profile EditProfile(Profile profile)
         {
-            base.Edit(profile);
+            return base.Edit(profile);
         }
 
         public async Task<IEnumerable<Profile>> GetAllProfiles(ProfileParameters parameters)

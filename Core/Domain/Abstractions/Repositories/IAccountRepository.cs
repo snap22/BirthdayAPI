@@ -11,8 +11,8 @@ namespace BirthdayAPI.Core.Domain.Abstractions.Repositories
     {
         Task<IEnumerable<Account>> GetAccounts(AccountParameters parameters);
         Task<Account> GetAccountById(int id);
-        Task AddAccount(Account newAccount);
-        void EditAccount(Account account);
+        Task<Account> AddAccount(Account newAccount);
+        Account EditAccount(Account account);
         void RemoveAccount(Account account);
         bool AccountWithIdExists(int accountId);
         bool AccountWithEmailExists(string email);

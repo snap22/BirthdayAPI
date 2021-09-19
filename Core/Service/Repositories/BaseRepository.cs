@@ -30,14 +30,16 @@ namespace BirthdayAPI.Core.Service.Repositories
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task Add(T entity)
+        public async Task<T> Add(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
+            return entity;
         }
 
-        public void Edit(T entity)
+        public T Edit(T entity)
         {
             _context.Set<T>().Update(entity);
+            return entity;
         }
         
         public  void Remove(T entity)
