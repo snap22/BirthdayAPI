@@ -21,41 +21,37 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
             _service = service;
         }
 
-        // GET: api/Contacts
+        // GET: api/Profiles/2/Contacts
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ContactDto>>> GetContacts([FromRoute]int profileId, [FromQuery] ContactParameters ContactParameters)
         {
             return Ok(await _service.ContactService.GetContacts(profileId, ContactParameters));
         }
 
-        // GET: api/Contacts/5
+        // GET: api/Profiles/2/Contacts/5
         [HttpGet("{contactId}")]
         public async Task<ActionResult<ContactDto>> GetContact([FromRoute]int profileId, int contactId)
         {
             return Ok(await _service.ContactService.GetContact(profileId, contactId));
         }
 
-        // PUT: api/Contacts/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkcontactId=2123754.
+        // PUT: api/Profiles/2/Contacts/5
         [HttpPut("{contactId}")]
-        public async Task<IActionResult> PutContact([FromRoute]int profileId, int contactId, ContactDto Contact)
+        public async Task<IActionResult> PutContact([FromRoute]int profileId, int contactId, ContactDto contact)
         {
-            return Ok(await _service.ContactService.UpdateContact(profileId, contactId, Contact));
+            return Ok(await _service.ContactService.UpdateContact(profileId, contactId, contact));
         }
 
-        // POST: api/Contacts
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkcontactId=2123754.
+        // POST: api/Profiles/2/Contacts
         [HttpPost]
-        public async Task<ActionResult<ContactDto>> PostContact([FromRoute]int profileId, ContactDto Contact)
+        public async Task<ActionResult<ContactDto>> PostContact([FromRoute]int profileId, ContactDto contact)
         {
-            await _service.ContactService.CreateContact(profileId, Contact);
+            await _service.ContactService.CreateContact(profileId, contact);
 
-            return CreatedAtAction(nameof(GetContact), new { contactId = Contact.ContactId }, Contact);
+            return CreatedAtAction(nameof(GetContact), new { profileId, contact.ContactId }, contact);
         }
 
-        // DELETE: api/Contacts/5
+        // DELETE: api/Profiles/2/Contacts/5
         [HttpDelete("{contactId}")]
         public async Task<ActionResult<ContactDto>> DeleteContact([FromRoute]int profileId, int contactId)
         {
