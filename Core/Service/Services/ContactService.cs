@@ -18,7 +18,7 @@ namespace BirthdayAPI.Core.Service.Services
         
         public async Task<ContactDto> CreateContact(int profileId, ContactDto contact)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
 
             // set the profileId of a contact to the profileId in route
             contact.ProfileId = profileId;
@@ -31,17 +31,17 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<ContactDto> GetContact(int profileId, int contactId)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
-            ThrowErrorIfContactDoesntExist(contactId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfContactDoesntExist(contactId);
 
             var foundContact = await _repository.ContactRepository.GetContactById(contactId);
-            ThrowErrorIfProfilesNotTheSame(profileId, foundContact.ProfileId);
+            base.ThrowErrorIfProfilesNotTheSame(profileId, foundContact.ProfileId);
             return _mapper.Map<ContactDto>(foundContact);
         }
 
         public async Task<IEnumerable<ContactDto>> GetContacts(int profileId, ContactParameters parameters)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
             if (parameters.IsValidMonthRange() == false)
                 throw new BadRequestException("Wrong months range!");
 
@@ -52,11 +52,11 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<ContactDto> RemoveContact(int profileId, int contactId)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
-            ThrowErrorIfContactDoesntExist(contactId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfContactDoesntExist(contactId);
 
             var foundConctact = await _repository.ContactRepository.GetContactById(contactId);
-            ThrowErrorIfProfilesNotTheSame(profileId, foundConctact.ProfileId);
+            base.ThrowErrorIfProfilesNotTheSame(profileId, foundConctact.ProfileId);
             _repository.ContactRepository.RemoveContact(foundConctact);
             await _repository.UnitOfWork.CompleteAsync();
             return _mapper.Map<ContactDto>(foundConctact);
@@ -64,11 +64,11 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<ContactDto> UpdateContact(int profileId, int contactId, ContactDto contact)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
-            ThrowErrorIfContactDoesntExist(contactId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfContactDoesntExist(contactId);
 
             var existingContact = await _repository.ContactRepository.GetContactById(contactId);
-            ThrowErrorIfProfilesNotTheSame(profileId, existingContact.ProfileId);
+            base.ThrowErrorIfProfilesNotTheSame(profileId, existingContact.ProfileId);
 
             if (existingContact.ProfileId != contact.ProfileId)
             {
@@ -82,21 +82,6 @@ namespace BirthdayAPI.Core.Service.Services
             return _mapper.Map<ContactDto>(existingContact); 
         }
 
-        private void ThrowErrorIfProfileDoesntExist(int profileId)
-        {
-            if (_repository.ProfileRepository.ProfileWithIdExists(profileId) == false)
-                throw new NotFoundException($"Profile with id: {profileId} does not exist!");
-        }
 
-        private void ThrowErrorIfContactDoesntExist(int contactId)
-        {
-            if (_repository.ContactRepository.ContactWithIdExists(contactId) == false)
-                throw new NotFoundException($"Contact with id: {contactId} does not exist!");
-        }
-        private void ThrowErrorIfProfilesNotTheSame(int profileId1, int profileId2)
-        {
-            if (profileId1 != profileId2)
-                throw new BadRequestException("Contact does not belong to this profile!");
-        }
     }
 }

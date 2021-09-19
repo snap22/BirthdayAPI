@@ -28,7 +28,7 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<ProfileDto> GetProfile(int profileId)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
 
             var foundProfile = await _repository.ProfileRepository.GetProfileById(profileId);
             return _mapper.Map<ProfileDto>(foundProfile);
@@ -41,7 +41,7 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<ProfileDto> RemoveProfile(int profileId)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
 
             var foundProfile = await _repository.ProfileRepository.GetProfileById(profileId);
             _repository.ProfileRepository.RemoveProfile(foundProfile);
@@ -51,7 +51,7 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<ProfileDto> UpdateProfile(int profileId, ProfileDto profile)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
 
             var existingProfile = await _repository.ProfileRepository.GetProfileById(profileId);
             if (existingProfile.Username != profile.Username)
@@ -72,18 +72,6 @@ namespace BirthdayAPI.Core.Service.Services
         {
             if (_repository.ProfileRepository.ProfileWithUsernameExists(username))
                 throw new BadRequestException($"Profile with username: {username} already exists!");
-        }
-
-        private void ThrowErrorIfProfileDoesntExist(int profileId)
-        {
-            if (_repository.ProfileRepository.ProfileWithIdExists(profileId) == false)
-                throw new NotFoundException($"Profile with id: {profileId} doesn't exist!");
-        }
-
-        private void ThrowErrorIfAccountIdDoesnotMatch(int accountId)
-        {
-            if (_repository.ProfileRepository.GetProfileByAccountId(accountId).AccountId != accountId)
-                throw new BadRequestException($"Account with id: {accountId} already has a profile!");
         }
 
         private void ThrowErrorIfAccountIdAlreadyUsed(int accountId)

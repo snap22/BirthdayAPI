@@ -18,7 +18,7 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<NoteDto> CreateNote(int profileId, NoteDto note)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
             note.ProfileId = profileId;
 
             var newNote = _mapper.Map<Note>(note);
@@ -30,28 +30,28 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<NoteDto> GetNote(int profileId, int noteId)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
-            ThrowErrorIfNoteDoesntExist(noteId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfNoteDoesntExist(noteId);
 
             var foundNote = await _repository.NoteRepository.GetNoteById(noteId);
-            ThrowErrorIfProfilesNotTheSame(foundNote.ProfileId, profileId);
+            base.ThrowErrorIfProfilesNotTheSame(foundNote.ProfileId, profileId);
             return _mapper.Map<NoteDto>(foundNote);
         }
 
         public async Task<IEnumerable<NoteDto>> GetNotes(int profileId, NoteParameters parameters)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
             var foundNotes = await _repository.NoteRepository.GetNotesOfProfile(profileId, parameters);
             return _mapper.Map<IEnumerable<NoteDto>>(foundNotes);
         }
 
         public async Task<NoteDto> RemoveNote(int profileId, int noteId)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
-            ThrowErrorIfNoteDoesntExist(noteId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfNoteDoesntExist(noteId);
 
             var foundNote = await _repository.NoteRepository.GetNoteById(noteId);
-            ThrowErrorIfProfilesNotTheSame(foundNote.ProfileId, profileId);
+            base.ThrowErrorIfProfilesNotTheSame(foundNote.ProfileId, profileId);
 
             _repository.NoteRepository.RemoveNote(foundNote);
             await _repository.UnitOfWork.CompleteAsync();
@@ -61,11 +61,11 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<NoteDto> UpdateNote(int profileId, int noteId, NoteDto Note)
         {
-            ThrowErrorIfProfileDoesntExist(profileId);
-            ThrowErrorIfNoteDoesntExist(noteId);
+            base.ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfNoteDoesntExist(noteId);
 
             var foundNote = await _repository.NoteRepository.GetNoteById(noteId);
-            ThrowErrorIfProfilesNotTheSame(foundNote.ProfileId, profileId);
+            base.ThrowErrorIfProfilesNotTheSame(foundNote.ProfileId, profileId);
 
             if (foundNote.ProfileId != Note.ProfileId)
                 throw new BadRequestException("Cannot change the profile of notes!");
@@ -75,24 +75,6 @@ namespace BirthdayAPI.Core.Service.Services
             await _repository.UnitOfWork.CompleteAsync();
 
             return _mapper.Map<NoteDto>(foundNote);
-        }
-
-        private void ThrowErrorIfProfileDoesntExist(int profileId)
-        {
-            if (_repository.ProfileRepository.ProfileWithIdExists(profileId) == false)
-                throw new NotFoundException($"Profile with id: {profileId} does not exist!");
-        }
-
-        private void ThrowErrorIfNoteDoesntExist(int noteId)
-        {
-            if (_repository.NoteRepository.NoteWithIdExists(noteId) == false)
-                throw new NotFoundException($"Note with id: {noteId} does not exist!");
-        }
-
-        private void ThrowErrorIfProfilesNotTheSame(int profileId1, int profileId2)
-        {
-            if (profileId1 != profileId2)
-                throw new BadRequestException("Note does not belong to this profile!");
         }
     }
 }

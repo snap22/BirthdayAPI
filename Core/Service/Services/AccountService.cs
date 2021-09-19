@@ -26,7 +26,7 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<AccountDto> GetAccount(int accountId)
         {
-            ThrowErrorIfAccountDoesntExist(accountId);
+            base.ThrowErrorIfAccountDoesntExist(accountId);
 
             var foundAccount = await _repository.AccountRepository.GetAccountById(accountId);
 
@@ -44,7 +44,7 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<AccountDto> RemoveAccount(int accountId)
         {
-            ThrowErrorIfAccountDoesntExist(accountId);
+            base.ThrowErrorIfAccountDoesntExist(accountId);
 
             var foundAccount = await _repository.AccountRepository.GetAccountById(accountId);
 
@@ -55,7 +55,7 @@ namespace BirthdayAPI.Core.Service.Services
 
         public async Task<AccountDto> UpdateAccount(int accountId, AccountDto account)
         {
-            ThrowErrorIfAccountDoesntExist(accountId);
+            base.ThrowErrorIfAccountDoesntExist(accountId);
 
             var existingAccount = await _repository.AccountRepository.GetAccountById(accountId);
 
@@ -70,12 +70,6 @@ namespace BirthdayAPI.Core.Service.Services
 
             var foundAccount = await _repository.AccountRepository.GetAccountById(account.AccountId);
             return _mapper.Map<AccountDto>(foundAccount);
-        }
-
-        private void ThrowErrorIfAccountDoesntExist(int accountId)
-        {
-            if (_repository.AccountRepository.AccountWithIdExists(accountId) == false)
-                throw new NotFoundException($"Account with id: {accountId} doesn't exist!");
         }
 
         private void ThrowErrorIfEmailAlreadyUsed(string email)
