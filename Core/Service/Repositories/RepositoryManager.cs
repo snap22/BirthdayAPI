@@ -32,7 +32,7 @@ namespace BirthdayAPI.Core.Service.Repositories
             _lazyUnitOfWork = new Lazy<IUnitOfWork>(() => new SaveUnit(context));
             _lazyContactRepository = new Lazy<IContactRepository>(() => new ContactRepository(context, contactSortHelper));
             _lazyNoteRepository = new Lazy<INoteRepository>(() => new NoteRepository(context, noteSortHelper));
-            //_lazyGiftRepository = new Lazy<IGiftRepository>(() => new GiftRepository(context, giftSortHelper));
+            _lazyGiftRepository = new Lazy<IGiftRepository>(() => new GiftRepository(context, giftSortHelper));
         }
         public IAccountRepository AccountRepository => _lazyAccountRepository.Value;
         public IProfileRepository ProfileRepository => _lazyProfileRepository.Value;
