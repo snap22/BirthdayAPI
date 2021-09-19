@@ -7,6 +7,11 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
 {
     public class GiftParameters : QueryStringParameters
     {
+        public GiftParameters()
+        {
+            OrderBy = "GiftId";
+        }
+
         private const double DEFAULT_PRICE = 0;
         private double _minPrice;
         private double _maxPrice;
