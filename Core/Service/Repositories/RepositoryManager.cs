@@ -13,6 +13,8 @@ namespace BirthdayAPI.Core.Service.Repositories
         private readonly Lazy<IAccountRepository> _lazyAccountRepository;
         private readonly Lazy<IProfileRepository> _lazyProfileRepository;
         private readonly Lazy<IContactRepository> _lazyContactRepository;
+        private readonly Lazy<INoteRepository> _lazyNoteRepository;
+        private readonly Lazy<IGiftRepository> _lazyGiftRepository;
         private readonly Lazy<IUnitOfWork> _lazyUnitOfWork;
 
         
@@ -29,6 +31,8 @@ namespace BirthdayAPI.Core.Service.Repositories
             _lazyProfileRepository = new Lazy<IProfileRepository>(() => new ProfileRepository(context, profileSortHelper));
             _lazyUnitOfWork = new Lazy<IUnitOfWork>(() => new SaveUnit(context));
             _lazyContactRepository = new Lazy<IContactRepository>(() => new ContactRepository(context, contactSortHelper));
+            _lazyNoteRepository = new Lazy<INoteRepository>(() => new NoteRepository(context, noteSortHelper));
+            //_lazyGiftRepository = new Lazy<IGiftRepository>(() => new GiftRepository(context, giftSortHelper));
         }
         public IAccountRepository AccountRepository => _lazyAccountRepository.Value;
         public IProfileRepository ProfileRepository => _lazyProfileRepository.Value;
@@ -36,8 +40,8 @@ namespace BirthdayAPI.Core.Service.Repositories
 
         public IContactRepository ContactRepository => _lazyContactRepository.Value;
 
-        public IGiftRepository GiftRepository => throw new NotImplementedException();
+        public IGiftRepository GiftRepository => _lazyGiftRepository.Value;
 
-        public INoteRepository NoteRepository => throw new NotImplementedException();
+        public INoteRepository NoteRepository => _lazyNoteRepository.Value;
     }
 }
