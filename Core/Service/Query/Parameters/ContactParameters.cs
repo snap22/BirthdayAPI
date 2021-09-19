@@ -41,7 +41,7 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
         }
         public bool IsValidMonthRange()
         {
-            return MinMonth < MaxMonth;
+            return MinMonth <= MaxMonth;
         }
         
         
