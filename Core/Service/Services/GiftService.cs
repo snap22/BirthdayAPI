@@ -26,9 +26,9 @@ namespace BirthdayAPI.Core.Service.Services
 
             gift.ContactId = contactId;
             var newGift = _mapper.Map<Gift>(gift);
-            await _repository.GiftRepository.AddGift(newGift);
+            var createdGift = await _repository.GiftRepository.AddGift(newGift);
             await _repository.UnitOfWork.CompleteAsync();
-            return gift;
+            return _mapper.Map<GiftDto>(createdGift);
         }
 
         public async Task<GiftDto> GetGift(int profileId, int contactId, int giftId)
@@ -87,10 +87,10 @@ namespace BirthdayAPI.Core.Service.Services
                 throw new BadRequestException("Cannot change the contact of a gift");
 
             _mapper.Map(gift, foundGift);
-            _repository.GiftRepository.EditGift(foundGift);
+            var editedGift = _repository.GiftRepository.EditGift(foundGift);
             await _repository.UnitOfWork.CompleteAsync();
 
-            return _mapper.Map<GiftDto>(foundGift);
+            return _mapper.Map<GiftDto>(editedGift);
         }
 
         private void ThrowErrorIfContactsNotTheSame(int contact1, int contact2)

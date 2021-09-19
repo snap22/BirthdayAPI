@@ -24,9 +24,9 @@ namespace BirthdayAPI.Core.Service.Services
             contact.ProfileId = profileId;
 
             var newContact = _mapper.Map<Contact>(contact);
-            await _repository.ContactRepository.AddContact(newContact);
+            var createdContact = await _repository.ContactRepository.AddContact(newContact);
             await _repository.UnitOfWork.CompleteAsync();
-            return contact;
+            return _mapper.Map<ContactDto>(createdContact);
         }
 
         public async Task<ContactDto> GetContact(int profileId, int contactId)
@@ -76,10 +76,10 @@ namespace BirthdayAPI.Core.Service.Services
             }
 
             _mapper.Map(contact, existingContact);
-            _repository.ContactRepository.EditContact(existingContact);
+            var editedContact = _repository.ContactRepository.EditContact(existingContact);
             await _repository.UnitOfWork.CompleteAsync();
 
-            return _mapper.Map<ContactDto>(existingContact); 
+            return _mapper.Map<ContactDto>(editedContact); 
         }
 
 

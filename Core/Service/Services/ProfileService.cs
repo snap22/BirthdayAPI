@@ -21,9 +21,9 @@ namespace BirthdayAPI.Core.Service.Services
 
             var newProfile = _mapper.Map<Profile>(profile);
 
-            await _repository.ProfileRepository.AddProfile(newProfile);
+            var createdProfile = await _repository.ProfileRepository.AddProfile(newProfile);
             await _repository.UnitOfWork.CompleteAsync();
-            return profile;
+            return _mapper.Map<ProfileDto>(createdProfile);
         }
 
         public async Task<ProfileDto> GetProfile(int profileId)
@@ -63,9 +63,9 @@ namespace BirthdayAPI.Core.Service.Services
                 ThrowErrorIfAccountIdAlreadyUsed(profile.AccountId);
             }
             _mapper.Map(profile, existingProfile);
-            _repository.ProfileRepository.EditProfile(existingProfile);
+            var editedProfile = _repository.ProfileRepository.EditProfile(existingProfile);
             await _repository.UnitOfWork.CompleteAsync();
-            return _mapper.Map<ProfileDto>(existingProfile);
+            return _mapper.Map<ProfileDto>(editedProfile);
         }
 
         private void ThrowErrorIfProfileWithUsernameExists(string username)

@@ -19,9 +19,9 @@ namespace BirthdayAPI.Core.Service.Services
             ThrowErrorIfEmailAlreadyUsed(account.Email);
 
             var newAccount = _mapper.Map<Account>(account);
-            await _repository.AccountRepository.AddAccount(newAccount);
+            var createdAccount = await _repository.AccountRepository.AddAccount(newAccount);
             await _repository.UnitOfWork.CompleteAsync();
-            return account;
+            return _mapper.Map<AccountDto>(createdAccount);
         }
 
         public async Task<AccountDto> GetAccount(int accountId)
@@ -65,11 +65,10 @@ namespace BirthdayAPI.Core.Service.Services
             }
 
             _mapper.Map(account, existingAccount);
-            _repository.AccountRepository.EditAccount(existingAccount);
+            var editedAccount = _repository.AccountRepository.EditAccount(existingAccount);
             await _repository.UnitOfWork.CompleteAsync();
 
-            var foundAccount = await _repository.AccountRepository.GetAccountById(account.AccountId);
-            return _mapper.Map<AccountDto>(foundAccount);
+            return _mapper.Map<AccountDto>(editedAccount);
         }
 
         private void ThrowErrorIfEmailAlreadyUsed(string email)

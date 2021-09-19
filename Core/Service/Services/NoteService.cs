@@ -22,10 +22,10 @@ namespace BirthdayAPI.Core.Service.Services
             note.ProfileId = profileId;
 
             var newNote = _mapper.Map<Note>(note);
-            await _repository.NoteRepository.AddNote(newNote);
+            var createdNote = await _repository.NoteRepository.AddNote(newNote);
             await _repository.UnitOfWork.CompleteAsync();
 
-            return note;
+            return _mapper.Map<NoteDto>(createdNote);
         }
 
         public async Task<NoteDto> GetNote(int profileId, int noteId)
@@ -71,10 +71,10 @@ namespace BirthdayAPI.Core.Service.Services
                 throw new BadRequestException("Cannot change the profile of notes!");
 
             _mapper.Map(Note, foundNote);
-            _repository.NoteRepository.EditNote(foundNote);
+            var editedNote = _repository.NoteRepository.EditNote(foundNote);
             await _repository.UnitOfWork.CompleteAsync();
 
-            return _mapper.Map<NoteDto>(foundNote);
+            return _mapper.Map<NoteDto>(editedNote);
         }
     }
 }
