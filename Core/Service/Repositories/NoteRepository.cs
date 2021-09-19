@@ -15,39 +15,53 @@ namespace BirthdayAPI.Core.Service.Repositories
         public NoteRepository(ApplicationDbContext context, ISortHelper<Note> sortHelper) : base(context, sortHelper) { }
 
         
-        public Task AddNote(Note newNote)
+        public async Task AddNote(Note newNote)
         {
-            throw new NotImplementedException();
+            await base.Add(newNote);
         }
 
         public void EditNote(Note note)
         {
-            throw new NotImplementedException();
+            base.Edit(note);
         }
 
-        public Task<Note> GetNoteById(int id)
+        public async Task<Note> GetNoteById(int id)
         {
-            throw new NotImplementedException();
+            return await base.GetById(id);
         }
 
-        public Task<IEnumerable<Note>> GetNotes(NoteParameters parameters)
+        public async Task<IEnumerable<Note>> GetNotes(NoteParameters parameters)
         {
-            throw new NotImplementedException();
+            IQueryable<Note> notes = _context.Notes;
+            ReduceQueryByTitle(ref notes, parameters.Title);
+            notes = _sortHelper.ApplySort(notes, parameters.OrderBy);
+            return await base.GetPagedResult(notes, parameters);
         }
 
-        public Task<IEnumerable<Note>> GetNotesOfProfile(int profileId, NoteParameters parameters)
+        public async Task<IEnumerable<Note>> GetNotesOfProfile(int profileId, NoteParameters parameters)
         {
-            throw new NotImplementedException();
+            IQueryable<Note> notes = _context.Notes.Where(n => n.ProfileId == profileId);
+            ReduceQueryByTitle(ref notes, parameters.Title);
+            notes = _sortHelper.ApplySort(notes, parameters.OrderBy);
+            return await base.GetPagedResult(notes, parameters);
         }
 
         public bool NoteWithIdExists(int noteId)
         {
-            throw new NotImplementedException();
+            return _context.Notes.Any(n => n.NoteId == noteId);
         }
 
         public void RemoveNote(Note note)
         {
-            throw new NotImplementedException();
+            base.Remove(note);
+        }
+
+        private void ReduceQueryByTitle(ref IQueryable<Note> notes, string title)
+        {
+            if (notes.Any() == false || string.IsNullOrWhiteSpace(title))
+                return;
+
+            notes = notes.Where(n => n.Title.ToLower().Contains(title.ToLower()));
         }
     }
 }
