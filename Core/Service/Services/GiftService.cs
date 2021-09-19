@@ -21,6 +21,9 @@ namespace BirthdayAPI.Core.Service.Services
             base.ThrowErrorIfProfileDoesntExist(profileId);
             base.ThrowErrorIfContactDoesntExist(contactId);
 
+            var foundProfile = await _repository.ContactRepository.GetContactById(contactId);
+            ThrowErrorIfProfilesNotTheSame(foundProfile.ProfileId, profileId);
+
             gift.ContactId = contactId;
             var newGift = _mapper.Map<Gift>(gift);
             await _repository.GiftRepository.AddGift(newGift);
@@ -42,6 +45,9 @@ namespace BirthdayAPI.Core.Service.Services
         {
             base.ThrowErrorIfProfileDoesntExist(profileId);
             base.ThrowErrorIfContactDoesntExist(contactId);
+
+            if (parameters.IsValidPriceRange() == false)
+                throw new BadRequestException("Price range is not valid!");
 
             var foundGifts = await _repository.GiftRepository.GetGiftsOfContact(contactId, parameters);
             return _mapper.Map<IEnumerable<GiftDto>>(foundGifts);
