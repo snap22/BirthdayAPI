@@ -24,7 +24,7 @@ namespace BirthdayAPI.Core.Service.Services
             _lazyProfileService = new Lazy<IProfileService>(() => new ProfileService(repositoryManager, mapper));
             _lazyContactService = new Lazy<IContactService>(() => new ContactService(repositoryManager, mapper));
             _lazyNoteService = new Lazy<INoteService>(() => new NoteService(repositoryManager, mapper));
-            //_lazyGiftService = new Lazy<IGiftService>(() => new GiftService(repositoryManager, mapper));
+            _lazyGiftService = new Lazy<IGiftService>(() => new GiftService(repositoryManager, mapper));
         }
         public IAccountService AccountService => _lazyAccountService.Value;
 
