@@ -42,6 +42,9 @@ namespace BirthdayAPI.Core.Service.Services
         public async Task<IEnumerable<ContactDto>> GetContacts(int profileId, ContactParameters parameters)
         {
             ThrowErrorIfProfileDoesntExist(profileId);
+            if (parameters.IsValidMonthRange() == false)
+                throw new BadRequestException("Wrong months range!");
+
             var foundContacts = await _repository.ContactRepository.GetContactsOfProfile(profileId, parameters);
             //var foundContacts = await _repository.ContactRepository.GetAllContacts(parameters);
             return _mapper.Map<IEnumerable<ContactDto>>(foundContacts);
