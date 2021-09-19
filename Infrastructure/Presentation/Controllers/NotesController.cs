@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BirthdayAPI.Infrastructure.Presentation.Controllers
 {
-    [Route("api/Notes/{noteId:int}/Notes")]
+    [Route("api/Notes/{profileId:int}/Notes")]
     [ApiController]
     public class NotesController : ControllerBase
     {
