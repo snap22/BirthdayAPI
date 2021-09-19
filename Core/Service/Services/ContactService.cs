@@ -18,8 +18,10 @@ namespace BirthdayAPI.Core.Service.Services
         
         public async Task<ContactDto> CreateContact(int profileId, ContactDto contact)
         {
-            ThrowErrorIfProfileDoesntExist(contact.ProfileId);
-            ThrowErrorIfProfilesNotTheSame(profileId, contact.ProfileId);
+            ThrowErrorIfProfileDoesntExist(profileId);
+
+            // set the profileId of a contact to the profileId in route
+            contact.ProfileId = profileId;
 
             var newContact = _mapper.Map<Contact>(contact);
             await _repository.ContactRepository.AddContact(newContact);
@@ -41,6 +43,7 @@ namespace BirthdayAPI.Core.Service.Services
         {
             ThrowErrorIfProfileDoesntExist(profileId);
             var foundContacts = await _repository.ContactRepository.GetContactsOfProfile(profileId, parameters);
+            //var foundContacts = await _repository.ContactRepository.GetAllContacts(parameters);
             return _mapper.Map<IEnumerable<ContactDto>>(foundContacts);
         }
 
@@ -78,13 +81,13 @@ namespace BirthdayAPI.Core.Service.Services
 
         private void ThrowErrorIfProfileDoesntExist(int profileId)
         {
-            if (_repository.ProfileRepository.ProfileWithIdExists(profileId))
+            if (_repository.ProfileRepository.ProfileWithIdExists(profileId) == false)
                 throw new NotFoundException($"Profile with id: {profileId} does not exist!");
         }
 
         private void ThrowErrorIfContactDoesntExist(int contactId)
         {
-            if (_repository.ContactRepository.ContactWithIdExists(contactId))
+            if (_repository.ContactRepository.ContactWithIdExists(contactId) == false)
                 throw new NotFoundException($"Contact with id: {contactId} does not exist!");
         }
         private void ThrowErrorIfProfilesNotTheSame(int profileId1, int profileId2)
