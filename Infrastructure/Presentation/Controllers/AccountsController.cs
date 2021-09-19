@@ -49,9 +49,9 @@ namespace BirthdayAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<AccountDto>> PostAccount(AccountDto account)
         {
-            await _service.AccountService.CreateAccount(account);
+            var newAccount = await _service.AccountService.CreateAccount(account);
 
-            return CreatedAtAction(nameof(GetAccount), new { id = account.AccountId }, account);
+            return CreatedAtAction(nameof(GetAccount), new { id = newAccount.AccountId }, newAccount);
         }
 
         // DELETE: api/Accounts/5

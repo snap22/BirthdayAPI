@@ -46,9 +46,9 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         [HttpPost]
         public async Task<ActionResult<ContactDto>> PostContact([FromRoute]int profileId, ContactDto contact)
         {
-            await _service.ContactService.CreateContact(profileId, contact);
+            var newContact = await _service.ContactService.CreateContact(profileId, contact);
 
-            return CreatedAtAction(nameof(GetContact), new { profileId, contact.ContactId }, contact);
+            return CreatedAtAction(nameof(GetContact), new { profileId, newContact.ContactId }, newContact);
         }
 
         // DELETE: api/Profiles/2/Contacts/5

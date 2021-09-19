@@ -51,9 +51,9 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         [HttpPost]
         public async Task<ActionResult<ProfileDto>> PostProfile(ProfileDto profile)
         {
-            await _service.ProfileService.CreateProfile(profile);
+            var newProfile = await _service.ProfileService.CreateProfile(profile);
 
-            return CreatedAtAction(nameof(GetProfile), new { id = profile.ProfileId }, profile);
+            return CreatedAtAction(nameof(GetProfile), new { id = newProfile.ProfileId }, newProfile);
         }
 
         // DELETE: api/Profiles/5

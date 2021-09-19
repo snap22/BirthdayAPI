@@ -46,9 +46,9 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         [HttpPost]
         public async Task<ActionResult<NoteDto>> PostNote([FromRoute]int profileId, NoteDto Note)
         {
-            await _service.NoteService.CreateNote(profileId, Note);
+            var newNote = await _service.NoteService.CreateNote(profileId, Note);
 
-            return CreatedAtAction(nameof(GetNote), new { profileId, Note.NoteId }, Note);
+            return CreatedAtAction(nameof(GetNote), new { profileId, newNote.NoteId }, newNote);
         }
 
         // DELETE: api/Profiles/2/Notes/5

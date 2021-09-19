@@ -45,9 +45,9 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         [HttpPost]
         public async Task<ActionResult<GiftDto>> PostGift([FromRoute]int profileId, [FromRoute]int contactId, GiftDto Gift)
         {
-            await _service.GiftService.CreateGift(profileId, contactId, Gift);
+            var newGift = await _service.GiftService.CreateGift(profileId, contactId, Gift);
 
-            return CreatedAtAction(nameof(GetGift), new { profileId, contactId, Gift.GiftId }, Gift);
+            return CreatedAtAction(nameof(GetGift), new { profileId, contactId, newGift.GiftId }, newGift);
         }
 
         // DELETE: api/Profiles/2/Gifts/5
