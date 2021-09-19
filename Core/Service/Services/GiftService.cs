@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using BirthdayAPI.Core.Domain.Abstractions.Repositories;
+using BirthdayAPI.Core.Domain.Entities;
+using BirthdayAPI.Core.Domain.Exceptions;
 using BirthdayAPI.Core.Service.DTOs;
 using BirthdayAPI.Core.Service.Query.Parameters;
 using BirthdayAPI.Core.Service.Services.Abstractions;
@@ -14,31 +16,81 @@ namespace BirthdayAPI.Core.Service.Services
     {
         public GiftService(IRepositoryManager repository, IMapper mapper) : base(repository, mapper) { }
 
-        public async Task<GiftDto> CreateGift(int profileId, int contactId, GiftDto Gift)
+        public async Task<GiftDto> CreateGift(int profileId, int contactId, GiftDto gift)
         {
-            throw new NotImplementedException();
+            base.ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfContactDoesntExist(contactId);
+
+            gift.ContactId = contactId;
+            var newGift = _mapper.Map<Gift>(gift);
+            await _repository.GiftRepository.AddGift(newGift);
+            await _repository.UnitOfWork.CompleteAsync();
+            return gift;
         }
 
         public async Task<GiftDto> GetGift(int profileId, int contactId, int giftId)
         {
-            throw new NotImplementedException();
+            base.ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfContactDoesntExist(contactId);
+            base.ThrowErrorIfGiftDoesntExist(giftId);
+
+            var foundGift = await _repository.GiftRepository.GetGiftById(giftId);
+            return _mapper.Map<GiftDto>(foundGift);
         }
 
         public async Task<IEnumerable<GiftDto>> GetGifts(int profileId, int contactId, GiftParameters parameters)
         {
-            throw new NotImplementedException();
+            base.ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfContactDoesntExist(contactId);
+
+            var foundGifts = await _repository.GiftRepository.GetGiftsOfContact(contactId, parameters);
+            return _mapper.Map<IEnumerable<GiftDto>>(foundGifts);
         }
 
         public async Task<GiftDto> RemoveGift(int profileId, int contactId, int giftId)
         {
-            throw new NotImplementedException();
+            base.ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfContactDoesntExist(contactId);
+            base.ThrowErrorIfGiftDoesntExist(giftId);
+
+            var foundContact = await _repository.ContactRepository.GetContactById(contactId);
+            ThrowErrorIfProfilesNotTheSame(foundContact.ProfileId, profileId);
+
+            var foundGift = await _repository.GiftRepository.GetGiftById(giftId);
+            ThrowErrorIfContactsNotTheSame(contactId, foundGift.ContactId);
+
+            _repository.GiftRepository.RemoveGift(foundGift);
+            await _repository.UnitOfWork.CompleteAsync();
+
+            return _mapper.Map<GiftDto>(foundGift);
         }
 
-        public async Task<GiftDto> UpdateGift(int profileId, int contactId, int giftId, GiftDto Gift)
+        public async Task<GiftDto> UpdateGift(int profileId, int contactId, int giftId, GiftDto gift)
         {
-            throw new NotImplementedException();
+            base.ThrowErrorIfProfileDoesntExist(profileId);
+            base.ThrowErrorIfContactDoesntExist(contactId);
+            base.ThrowErrorIfGiftDoesntExist(giftId);
+
+            var foundContact = await _repository.ContactRepository.GetContactById(contactId);
+            ThrowErrorIfProfilesNotTheSame(foundContact.ProfileId, profileId);
+
+            var foundGift = await _repository.GiftRepository.GetGiftById(giftId);
+            ThrowErrorIfContactsNotTheSame(contactId, foundGift.ContactId);
+
+            if (foundGift.ContactId != gift.ContactId)
+                throw new BadRequestException("Cannot change the contact of a gift");
+
+            _mapper.Map(gift, foundGift);
+            _repository.GiftRepository.EditGift(foundGift);
+            await _repository.UnitOfWork.CompleteAsync();
+
+            return _mapper.Map<GiftDto>(foundGift);
         }
 
-        
+        private void ThrowErrorIfContactsNotTheSame(int contact1, int contact2)
+        {
+            if (contact1 != contact2)
+                throw new BadRequestException("Gift doesnt belong to this contact!");
+        }
     }
 }
