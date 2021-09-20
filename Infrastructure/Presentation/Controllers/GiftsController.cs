@@ -18,28 +18,28 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         
 
         // GET: api/Profiles/2/Gifts
-        [HttpGet]
+        [HttpGet(Name = "GetGifts")]
         public async Task<ActionResult<IEnumerable<GiftDto>>> GetGifts([FromRoute]int profileId, [FromRoute]int contactId, [FromQuery] GiftParameters giftParameters)
         {
             return Ok(await _service.GiftService.GetGifts(profileId, contactId, giftParameters));
         }
 
         // GET: api/Profiles/2/Gifts/5
-        [HttpGet("{giftId}")]
+        [HttpGet("{giftId}", Name = "GetGift")]
         public async Task<ActionResult<GiftDto>> GetGift([FromRoute]int profileId, [FromRoute]int contactId, int giftId)
         {
             return Ok(await _service.GiftService.GetGift(profileId, contactId, giftId));
         }
 
         // PUT: api/Profiles/2/Gifts/5
-        [HttpPut("{giftId}")]
+        [HttpPut("{giftId}", Name = "PutGift")]
         public async Task<IActionResult> PutGift([FromRoute]int profileId, [FromRoute]int contactId, int giftId, GiftDto Gift)
         {
             return Ok(await _service.GiftService.UpdateGift(profileId, contactId, giftId, Gift));
         }
 
         // POST: api/Profiles/2/Gifts
-        [HttpPost]
+        [HttpPost(Name = "PostGift")]
         public async Task<ActionResult<GiftDto>> PostGift([FromRoute]int profileId, [FromRoute]int contactId, GiftDto Gift)
         {
             var newGift = await _service.GiftService.CreateGift(profileId, contactId, Gift);
@@ -48,7 +48,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         }
 
         // DELETE: api/Profiles/2/Gifts/5
-        [HttpDelete("{giftId}")]
+        [HttpDelete("{giftId}", Name = "DeleteGift")]
         public async Task<ActionResult<GiftDto>> DeleteGift([FromRoute]int profileId, [FromRoute]int contactId, int giftId)
         {
             return Ok(await _service.GiftService.RemoveGift(profileId, contactId, giftId));

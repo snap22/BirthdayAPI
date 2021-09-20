@@ -18,14 +18,14 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
 
 
         // GET: api/Profiles
-        [HttpGet]
+        [HttpGet(Name = "GetProfiles")]
         public async Task<ActionResult<IEnumerable<ProfileDto>>> GetProfiles([FromQuery] ProfileParameters profileParameters)
         {
             return Ok(await _service.ProfileService.GetProfiles(profileParameters));
         }
 
         // GET: api/Profiles/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetProfile")]
         public async Task<ActionResult<ProfileDto>> GetProfile(int id)
         {
             return Ok(await _service.ProfileService.GetProfile(id));
@@ -34,7 +34,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         // PUT: api/Profiles/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+        [HttpPut("{id}", Name = "PutProfile")]
         public async Task<IActionResult> PutProfile(int id, ProfileDto profile)
         {
             return Ok(await _service.ProfileService.UpdateProfile(id, profile));
@@ -43,7 +43,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         // POST: api/Profiles
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
+        [HttpPost(Name = "PostProfile")]
         public async Task<ActionResult<ProfileDto>> PostProfile(ProfileDto profile)
         {
             var newProfile = await _service.ProfileService.CreateProfile(profile);
@@ -52,7 +52,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         }
 
         // DELETE: api/Profiles/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}", Name = "DeleteProfile")]
         public async Task<ActionResult<ProfileDto>> DeleteProfile(int id)
         {
             return Ok(await _service.ProfileService.RemoveProfile(id));

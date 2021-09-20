@@ -16,14 +16,14 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         public AccountsController(IServiceManager service) : base(service) { }
 
         // GET: api/Accounts
-        [HttpGet]
+        [HttpGet(Name = "GetAccounts")]
         public async Task<ActionResult<IEnumerable<AccountDto>>> GetAccounts([FromQuery] AccountParameters accountParameters)
         {
             return Ok(await _service.AccountService.GetAccounts(accountParameters));
         }
 
         // GET: api/Accounts/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetAccount")]
         public async Task<ActionResult<AccountDto>> GetAccount(int id)
         {
             return Ok(await _service.AccountService.GetAccount(id));
@@ -32,7 +32,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         // PUT: api/Accounts/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+        [HttpPut("{id}", Name = "PutAccount")]
         public async Task<IActionResult> PutAccount(int id, AccountDto account)
         {
             return Ok(await _service.AccountService.UpdateAccount(id, account));
@@ -41,7 +41,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         // POST: api/Accounts
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
+        [HttpPost(Name = "PostAccount")]
         public async Task<ActionResult<AccountDto>> PostAccount(AccountDto account)
         {
             var newAccount = await _service.AccountService.CreateAccount(account);
@@ -50,7 +50,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         }
 
         // DELETE: api/Accounts/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}", Name = "DeleteAccount")]
         public async Task<ActionResult<AccountDto>> DeleteAccount(int id)
         {
             return Ok(await _service.AccountService.RemoveAccount(id));

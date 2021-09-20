@@ -19,28 +19,28 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         public ContactsController(IServiceManager service) : base(service) { }
 
         // GET: api/Profiles/2/Contacts
-        [HttpGet]
+        [HttpGet(Name ="GetContacts")]
         public async Task<ActionResult<IEnumerable<ContactDto>>> GetContacts([FromRoute]int profileId, [FromQuery] ContactParameters ContactParameters)
         {
             return Ok(await _service.ContactService.GetContacts(profileId, ContactParameters));
         }
 
         // GET: api/Profiles/2/Contacts/5
-        [HttpGet("{contactId}")]
+        [HttpGet("{contactId}", Name = "GetContact")]
         public async Task<ActionResult<ContactDto>> GetContact([FromRoute]int profileId, int contactId)
         {
             return Ok(await _service.ContactService.GetContact(profileId, contactId));
         }
 
         // PUT: api/Profiles/2/Contacts/5
-        [HttpPut("{contactId}")]
+        [HttpPut("{contactId}", Name = "PutContact")]
         public async Task<IActionResult> PutContact([FromRoute]int profileId, int contactId, ContactDto contact)
         {
             return Ok(await _service.ContactService.UpdateContact(profileId, contactId, contact));
         }
 
         // POST: api/Profiles/2/Contacts
-        [HttpPost]
+        [HttpPost(Name = "PostContact")]
         public async Task<ActionResult<ContactDto>> PostContact([FromRoute]int profileId, ContactDto contact)
         {
             var newContact = await _service.ContactService.CreateContact(profileId, contact);
@@ -49,7 +49,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         }
 
         // DELETE: api/Profiles/2/Contacts/5
-        [HttpDelete("{contactId}")]
+        [HttpDelete("{contactId}", Name = "DeleteContact")]
         public async Task<ActionResult<ContactDto>> DeleteContact([FromRoute]int profileId, int contactId)
         {
             return Ok(await _service.ContactService.RemoveContact(profileId, contactId));

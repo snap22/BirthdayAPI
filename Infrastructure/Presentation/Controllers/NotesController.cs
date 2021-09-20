@@ -18,28 +18,28 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         public NotesController(IServiceManager service) : base(service) { }
 
         // GET: api/Profiles/2/Notes
-        [HttpGet]
+        [HttpGet(Name = "GetNotes")]
         public async Task<ActionResult<IEnumerable<NoteDto>>> GetNotes([FromRoute]int profileId, [FromQuery] NoteParameters noteParameters)
         {
             return Ok(await _service.NoteService.GetNotes(profileId, noteParameters));
         }
 
         // GET: api/Profiles/2/Notes/5
-        [HttpGet("{noteId}")]
+        [HttpGet("{noteId}", Name = "GetNote")]
         public async Task<ActionResult<NoteDto>> GetNote([FromRoute]int profileId, int noteId)
         {
             return Ok(await _service.NoteService.GetNote(profileId, noteId));
         }
 
         // PUT: api/Profiles/2/Notes/5
-        [HttpPut("{noteId}")]
+        [HttpPut("{noteId}", Name = "PutNote")]
         public async Task<IActionResult> PutNote([FromRoute]int profileId, int noteId, NoteDto Note)
         {
             return Ok(await _service.NoteService.UpdateNote(profileId, noteId, Note));
         }
 
         // POST: api/Profiles/2/Notes
-        [HttpPost]
+        [HttpPost(Name = "PostNote")]
         public async Task<ActionResult<NoteDto>> PostNote([FromRoute]int profileId, NoteDto Note)
         {
             var newNote = await _service.NoteService.CreateNote(profileId, Note);
@@ -48,7 +48,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         }
 
         // DELETE: api/Profiles/2/Notes/5
-        [HttpDelete("{noteId}")]
+        [HttpDelete("{noteId}", Name = "DeleteNote")]
         public async Task<ActionResult<NoteDto>> DeleteNote([FromRoute]int profileId, int noteId)
         {
             return Ok(await _service.NoteService.RemoveNote(profileId, noteId));
