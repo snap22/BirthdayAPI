@@ -65,5 +65,30 @@ namespace BirthdayAPI.Core.Service.Repositories
 
             contacts = contacts.Where(c => c.Name.ToLower().Contains(name.ToLower()));
         }
+
+        //private async Task<IEnumerable<Contact>> GetUpcomingContacts(int profileId, ContactParameters parameters)
+        //{
+        //    var currDate = DateTime.Now;
+        //    var contacts = _context.Contacts
+        //        .Select(c => new
+        //        {
+        //            cal = (currDate - CalculateDate(c.Date)).Seconds
+        //        })
+        //        .Where(c => c.cal > 0)
+        //        .OrderBy(c => c.cal);
+                
+
+        //    return await base.GetPagedResult(contacts, parameters);
+        //}
+
+        //private DateTime CalculateDate(DateTime date)
+        //{
+        //    var currDate = DateTime.Now;
+        //    int newYear = ((date.Month < currDate.Month) || (date.Month == currDate.Month && date.Day < currDate.Day)) ?
+        //        currDate.Year + 1 : currDate.Year;
+
+        //    // (Y, M, D)
+        //    return new DateTime(newYear, date.Month, date.Day);
+        //}
     }
 }
