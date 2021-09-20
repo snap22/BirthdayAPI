@@ -7,18 +7,13 @@ using BirthdayAPI.Core.Service.Services.Abstractions;
 using BirthdayAPI.Core.Service.DTOs;
 using BirthdayAPI.Core.Service.Query.Parameters;
 
-namespace BirthdayAPI.Controllers
+namespace BirthdayAPI.Infrastructure.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    public class AccountsController : BasicController
     {
-        private readonly IServiceManager _service;
-
-        public AccountsController(IServiceManager service)
-        {
-            _service = service;
-        }
+        public AccountsController(IServiceManager service) : base(service) { }
 
         // GET: api/Accounts
         [HttpGet]

@@ -13,13 +13,10 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
 {
     [Route("api/Profiles/{profileId:int}/Contacts")]
     [ApiController]
-    public class ContactsController : ControllerBase
+    public class ContactsController : BasicController
     {
-        private readonly IServiceManager _service;
-        public ContactsController(IServiceManager service)
-        {
-            _service = service;
-        }
+
+        public ContactsController(IServiceManager service) : base(service) { }
 
         // GET: api/Profiles/2/Contacts
         [HttpGet]

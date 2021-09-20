@@ -12,14 +12,9 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProfilesController : ControllerBase
+    public class ProfilesController : BasicController
     {
-        private readonly IServiceManager _service;
-        
-        public ProfilesController(IServiceManager service)
-        {
-            _service = service;
-        }
+        public ProfilesController(IServiceManager service) : base(service) { }
 
 
         // GET: api/Profiles
