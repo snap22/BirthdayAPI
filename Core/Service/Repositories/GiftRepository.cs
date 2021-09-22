@@ -39,10 +39,10 @@ namespace BirthdayAPI.Core.Service.Repositories
 
         public async Task<IEnumerable<Gift>> GetGiftsOfContact(int contactId, GiftParameters parameters)
         {
-            var filteredGifts = base.FilterByCondition(g => (g.EstimatedPrice >= parameters.MinPrice && g.EstimatedPrice <= parameters.MaxPrice));
+            var filteredGifts = base.FilterByCondition(g => (g.EstimatedPrice >= parameters.MinPrice && g.EstimatedPrice <= parameters.MaxPrice))
+                .Where(g => g.ContactId == contactId);
             ReduceQueryByName(ref filteredGifts, parameters.Name);
             filteredGifts = _sortHelper.ApplySort(filteredGifts, parameters.OrderBy);
-            filteredGifts = filteredGifts.Where(g => g.ContactId == contactId);
             return await base.GetPagedResult(filteredGifts, parameters);
         }
 
