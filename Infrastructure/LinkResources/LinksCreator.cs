@@ -28,10 +28,5 @@ namespace BirthdayAPI.Infrastructure.LinkResources
             Gift = new GiftLinks(linkGenerator);
             Note = new NoteLinks(linkGenerator);
         }
-        
-
-        
-
-
     }
 }
