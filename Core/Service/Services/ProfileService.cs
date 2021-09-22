@@ -39,6 +39,9 @@ namespace BirthdayAPI.Core.Service.Services
             base.ThrowErrorIfAccountDoesntExist(accountId);
 
             var foundProfile = _repository.ProfileRepository.GetProfileByAccountId(accountId);
+            if (foundProfile == null)
+                throw new NotFoundException($"Profile for this account (id: {accountId}) does not exist!");
+
             return _mapper.Map<ProfileDto>(foundProfile);
         }
 
