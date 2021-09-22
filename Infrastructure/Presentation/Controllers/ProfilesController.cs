@@ -32,6 +32,13 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
             return Ok(await _service.ProfileService.GetProfile(id));
         }
 
+        // GET: api/Profiles/5
+        [HttpGet("{accountId}", Name = "GetProfileByAccount")]
+        public async Task<ActionResult<ProfileDto>> GetProfileByAccount(int accountId)
+        {
+            return Ok(await _service.ProfileService.GetProfileByAccountId(accountId));
+        }
+
         // PUT: api/Profiles/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
