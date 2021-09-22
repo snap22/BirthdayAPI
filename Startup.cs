@@ -25,6 +25,7 @@ using BirthdayAPI.Infrastructure.Filters;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using BirthdayAPI.Core.Service.Query.Sorting;
+using BirthdayAPI.Infrastructure.LinkResources;
 
 namespace BirthdayAPI
 {
@@ -71,7 +72,7 @@ namespace BirthdayAPI
 
 
             // Registering for dependency injection
-
+            services.AddScoped<LinksCreator>();
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IServiceManager, ServiceManager>();
             services.AddScoped(typeof(ISortHelper<>), typeof(SortHelper<>));
