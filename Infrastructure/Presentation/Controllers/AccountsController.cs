@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using BirthdayAPI.Core.Service.Services.Abstractions;
 using BirthdayAPI.Core.Service.DTOs;
 using BirthdayAPI.Core.Service.Query.Parameters;
+using BirthdayAPI.Infrastructure.LinkResources;
 
 namespace BirthdayAPI.Infrastructure.Presentation.Controllers
 {
@@ -13,7 +14,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
     [ApiController]
     public class AccountsController : BasicController
     {
-        public AccountsController(IServiceManager service) : base(service) { }
+        public AccountsController(IServiceManager service, LinksCreator links) : base(service, links) { }
 
         // GET: api/Accounts
         [HttpGet(Name = "GetAccounts")]
@@ -26,7 +27,9 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         [HttpGet("{id}", Name = "GetAccount")]
         public async Task<ActionResult<AccountDto>> GetAccount(int id)
         {
-            return Ok(await _service.AccountService.GetAccount(id));
+            var foundAccount = await _service.AccountService.GetAccount(id);
+            var linkedAccount = _linksCreator.GenerateLinksForAccount(HttpContext, foundAccount);
+            return Ok(linkedAccount);
         }
 
         // PUT: api/Accounts/5

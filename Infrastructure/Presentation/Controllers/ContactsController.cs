@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BirthdayAPI.Core.Service.DTOs;
 using BirthdayAPI.Core.Service.Query.Parameters;
 using BirthdayAPI.Core.Service.Services.Abstractions;
+using BirthdayAPI.Infrastructure.LinkResources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
     public class ContactsController : BasicController
     {
 
-        public ContactsController(IServiceManager service) : base(service) { }
+        public ContactsController(IServiceManager service, LinksCreator links) : base(service, links) { }
 
         // GET: api/Profiles/2/Contacts
         [HttpGet(Name ="GetContacts")]
