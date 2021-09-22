@@ -16,11 +16,17 @@ namespace BirthdayAPI.Infrastructure.LinkResources
     {
         public AccountLinks Account { get; private set; }
         public ProfileLinks Profile { get; private set; }
+        public ContactLinks Contact { get; private set; }
+        public GiftLinks Gift { get; private set; }
+        public NoteLinks Note { get; private set; }
 
         public LinksCreator(LinkGenerator linkGenerator)
         {
             Account = new AccountLinks(linkGenerator);
             Profile = new ProfileLinks(linkGenerator);
+            Contact = new ContactLinks(linkGenerator);
+            Gift = new GiftLinks(linkGenerator);
+            Note = new NoteLinks(linkGenerator);
         }
         
 
