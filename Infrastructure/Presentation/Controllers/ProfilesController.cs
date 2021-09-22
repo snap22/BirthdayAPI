@@ -33,7 +33,8 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         }
 
         // GET: api/Profiles/5
-        [HttpGet("{accountId}", Name = "GetProfileByAccount")]
+        
+        [HttpGet("Account/{accountId}", Name = "GetProfileByAccount")]
         public async Task<ActionResult<ProfileDto>> GetProfileByAccount(int accountId)
         {
             return Ok(await _service.ProfileService.GetProfileByAccountId(accountId));
