@@ -31,7 +31,9 @@ namespace BirthdayAPI.Infrastructure.LinkResources
                 new Link(
                     _linkGenerator.GetUriByAction(httpContext, action : nameof(AccountsController.PutAccount), controller: "Accounts", values: new {id = account.AccountId }), "update_account", "PUT"),
                 new Link(
-                    _linkGenerator.GetUriByAction(httpContext, nameof(AccountsController.DeleteAccount), "Accounts", values: new { id = account.AccountId }), "delete_account", "DELETE")
+                    _linkGenerator.GetUriByAction(httpContext, nameof(AccountsController.DeleteAccount), "Accounts", values: new { id = account.AccountId }), "delete_account", "DELETE"),
+                new Link(
+                    _linkGenerator.GetUriByAction(httpContext, nameof(ProfilesController.GetProfileByAccount), "Profiles", values: new { accountId = account.AccountId }), "self_profile", "GET")
             };
 
             
