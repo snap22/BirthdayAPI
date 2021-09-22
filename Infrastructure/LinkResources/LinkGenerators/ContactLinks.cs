@@ -48,7 +48,7 @@ namespace BirthdayAPI.Infrastructure.LinkResources.LinkGenerators
                     href: _linkGenerator.GetUriByAction(httpContext, nameof(ContactsController.GetContacts), "Contacts", values : new {profileId = entity.ProfileId}),
                     rel: "other_contacts",
                     method: "GET"
-                    ),
+                    )
             };
 
             return linkedContact;
