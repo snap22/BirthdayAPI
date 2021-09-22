@@ -22,14 +22,18 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         [HttpGet(Name = "GetProfiles")]
         public async Task<ActionResult<IEnumerable<ProfileDto>>> GetProfiles([FromQuery] ProfileParameters profileParameters)
         {
-            return Ok(await _service.ProfileService.GetProfiles(profileParameters));
+            var foundProfiles = await _service.ProfileService.GetProfiles(profileParameters);
+            var linkedProfiles = _linksCreator.Profile.GenerateLinksForManyEntities(HttpContext, foundProfiles);
+            return Ok(linkedProfiles);
         }
 
         // GET: api/Profiles/5
         [HttpGet("{id}", Name = "GetProfile")]
         public async Task<ActionResult<ProfileDto>> GetProfile(int id)
         {
-            return Ok(await _service.ProfileService.GetProfile(id));
+            var foundProfile = await _service.ProfileService.GetProfile(id);
+            var linkedProfile = _linksCreator.Profile.GenerateLinksForOneEntity(HttpContext, foundProfile);
+            return Ok(linkedProfile);
         }
 
         // GET: api/Profiles/5
@@ -37,7 +41,9 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         [HttpGet("Account/{accountId}", Name = "GetProfileByAccount")]
         public async Task<ActionResult<ProfileDto>> GetProfileByAccount(int accountId)
         {
-            return Ok(await _service.ProfileService.GetProfileByAccountId(accountId));
+            var foundProfile = await _service.ProfileService.GetProfileByAccountId(accountId);
+            var linkedProfile = _linksCreator.Profile.GenerateLinksForOneEntity(HttpContext, foundProfile);
+            return Ok(linkedProfile);
         }
 
         // PUT: api/Profiles/5

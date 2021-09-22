@@ -21,7 +21,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         public async Task<ActionResult<IEnumerable<AccountDto>>> GetAccounts([FromQuery] AccountParameters accountParameters)
         {
             var accounts = await _service.AccountService.GetAccounts(accountParameters);
-            var linkedAccounts = _linksCreator.GenerateLinksForAccounts(HttpContext, accounts);
+            var linkedAccounts = _linksCreator.Account.GenerateLinksForManyEntities(HttpContext, accounts);
             return Ok(linkedAccounts);
         }
 
@@ -30,7 +30,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         public async Task<ActionResult<AccountDto>> GetAccount(int id)
         {
             var foundAccount = await _service.AccountService.GetAccount(id);
-            var linkedAccount = _linksCreator.GenerateLinksForAccount(HttpContext, foundAccount);
+            var linkedAccount = _linksCreator.Account.GenerateLinksForOneEntity(HttpContext, foundAccount);
             return Ok(linkedAccount);
         }
 
