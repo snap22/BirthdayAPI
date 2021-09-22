@@ -16,6 +16,9 @@ namespace BirthdayAPI.Core.Service.Validators
 
             RuleFor(g => g.Description)
                 .MaximumLength(200);
+
+            RuleFor(g => g.EstimatedPrice)
+                .GreaterThanOrEqualTo(0);
         }
     }
 }
