@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BirthdayAPI.Infrastructure.Presentation.Controllers
 {
-    [Route("api/Notes/{profileId:int}/Notes")]
+    [Route("api/Profiles/{profileId:int}/Notes")]
     [ApiController]
     public class NotesController : BasicController
     {
