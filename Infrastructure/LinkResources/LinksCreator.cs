@@ -36,12 +36,18 @@ namespace BirthdayAPI.Infrastructure.LinkResources
                     _linkGenerator.GetUriByAction(httpContext, nameof(ProfilesController.GetProfileByAccount), "Profiles", values: new { accountId = account.AccountId }), "self_profile", "GET")
             };
 
-            
-
-            
-
             linkedAccount.Links = links;
             return linkedAccount;
+        }
+
+        public IEnumerable<LinkedEntity<AccountDto>> GenerateLinksForAccounts(HttpContext httpContext, IEnumerable<AccountDto> accounts)
+        {
+            var linkedAccounts = new List<LinkedEntity<AccountDto>>();
+            foreach (var account in accounts)
+            {
+                linkedAccounts.Add(GenerateLinksForAccount(httpContext, account));
+            }
+            return linkedAccounts;
         }
     }
 }
