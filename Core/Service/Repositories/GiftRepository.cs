@@ -31,7 +31,10 @@ namespace BirthdayAPI.Core.Service.Repositories
 
         public async Task<IEnumerable<Gift>> GetGifts(GiftParameters parameters)
         {
-            var filteredGifts = base.FilterByCondition(g => (g.EstimatedPrice >= parameters.MinPrice && g.EstimatedPrice <= parameters.MaxPrice));
+            IQueryable<Gift> filteredGifts = _context.Gifts;
+            if (parameters.MaxPrice > 0)
+                FilterByPrice(ref filteredGifts, parameters.MinPrice, parameters.MaxPrice);
+
             ReduceQueryByName(ref filteredGifts, parameters.Name);
             filteredGifts = _sortHelper.ApplySort(filteredGifts, parameters.OrderBy);
             return await base.GetPagedResult(filteredGifts, parameters);
@@ -39,8 +42,12 @@ namespace BirthdayAPI.Core.Service.Repositories
 
         public async Task<IEnumerable<Gift>> GetGiftsOfContact(int contactId, GiftParameters parameters)
         {
-            var filteredGifts = base.FilterByCondition(g => (g.EstimatedPrice >= parameters.MinPrice && g.EstimatedPrice <= parameters.MaxPrice))
-                .Where(g => g.ContactId == contactId);
+
+            IQueryable<Gift> filteredGifts = _context.Gifts;
+            if (parameters.MaxPrice > 0)
+                FilterByPrice(ref filteredGifts, parameters.MinPrice, parameters.MaxPrice);
+                
+            filteredGifts = filteredGifts.Where(g => g.ContactId == contactId);
             ReduceQueryByName(ref filteredGifts, parameters.Name);
             filteredGifts = _sortHelper.ApplySort(filteredGifts, parameters.OrderBy);
             return await base.GetPagedResult(filteredGifts, parameters);
@@ -62,6 +69,11 @@ namespace BirthdayAPI.Core.Service.Repositories
                 return;
 
             gifts = gifts.Where(g => g.Name.ToLower().Contains(name.ToLower()));
+        }
+
+        private void FilterByPrice(ref IQueryable<Gift> gifts, double minPrice, double maxPrice)
+        {
+            gifts = base.FilterByCondition(g => (g.EstimatedPrice >= minPrice && g.EstimatedPrice <= maxPrice));
         }
     }
 }
