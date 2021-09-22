@@ -20,7 +20,9 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         [HttpGet(Name = "GetAccounts")]
         public async Task<ActionResult<IEnumerable<AccountDto>>> GetAccounts([FromQuery] AccountParameters accountParameters)
         {
-            return Ok(await _service.AccountService.GetAccounts(accountParameters));
+            var accounts = await _service.AccountService.GetAccounts(accountParameters);
+            var linkedAccounts = _linksCreator.GenerateLinksForAccounts(HttpContext, accounts);
+            return Ok(linkedAccounts);
         }
 
         // GET: api/Accounts/5
