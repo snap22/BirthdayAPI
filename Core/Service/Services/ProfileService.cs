@@ -34,6 +34,14 @@ namespace BirthdayAPI.Core.Service.Services
             return _mapper.Map<ProfileDto>(foundProfile);
         }
 
+        public ProfileDto GetProfileByAccountId(int accountId)
+        {
+            base.ThrowErrorIfAccountDoesntExist(accountId);
+
+            var foundProfile = _repository.ProfileRepository.GetProfileByAccountId(accountId);
+            return _mapper.Map<ProfileDto>(foundProfile);
+        }
+
         public async Task<IEnumerable<ProfileDto>> GetProfiles(ProfileParameters parameters)
         {
             return _mapper.Map<IEnumerable<ProfileDto>>(await _repository.ProfileRepository.GetAllProfiles(parameters));
