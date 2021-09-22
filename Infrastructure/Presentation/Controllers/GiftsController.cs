@@ -22,14 +22,18 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         [HttpGet(Name = "GetGifts")]
         public async Task<ActionResult<IEnumerable<GiftDto>>> GetGifts([FromRoute]int profileId, [FromRoute]int contactId, [FromQuery] GiftParameters giftParameters)
         {
-            return Ok(await _service.GiftService.GetGifts(profileId, contactId, giftParameters));
+            var foundGifts = await _service.GiftService.GetGifts(profileId, contactId, giftParameters);
+            var linkedGifts = _linksCreator.Gift.GenerateLinksForManyEntities(HttpContext, foundGifts);
+            return Ok(linkedGifts);
         }
 
         // GET: api/Profiles/2/Gifts/5
         [HttpGet("{giftId}", Name = "GetGift")]
         public async Task<ActionResult<GiftDto>> GetGift([FromRoute]int profileId, [FromRoute]int contactId, int giftId)
         {
-            return Ok(await _service.GiftService.GetGift(profileId, contactId, giftId));
+            var foundGift = await _service.GiftService.GetGift(profileId, contactId, giftId);
+            var linkedGift = _linksCreator.Gift.GenerateLinksForOneEntity(HttpContext, foundGift);
+            return Ok(linkedGift);
         }
 
         // PUT: api/Profiles/2/Gifts/5

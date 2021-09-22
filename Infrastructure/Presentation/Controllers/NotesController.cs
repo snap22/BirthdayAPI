@@ -22,14 +22,18 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         [HttpGet(Name = "GetNotes")]
         public async Task<ActionResult<IEnumerable<NoteDto>>> GetNotes([FromRoute]int profileId, [FromQuery] NoteParameters noteParameters)
         {
-            return Ok(await _service.NoteService.GetNotes(profileId, noteParameters));
+            var foundNotes = await _service.NoteService.GetNotes(profileId, noteParameters);
+            var linkedNotes = _linksCreator.Note.GenerateLinksForManyEntities(HttpContext, foundNotes);
+            return Ok(linkedNotes);
         }
 
         // GET: api/Profiles/2/Notes/5
         [HttpGet("{noteId}", Name = "GetNote")]
         public async Task<ActionResult<NoteDto>> GetNote([FromRoute]int profileId, int noteId)
         {
-            return Ok(await _service.NoteService.GetNote(profileId, noteId));
+            var foundNote = await _service.NoteService.GetNote(profileId, noteId);
+            var linkedNote = _linksCreator.Note.GenerateLinksForOneEntity(HttpContext, foundNote);
+            return Ok(linkedNote);
         }
 
         // PUT: api/Profiles/2/Notes/5
