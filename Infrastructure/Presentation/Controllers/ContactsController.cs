@@ -23,14 +23,18 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         [HttpGet(Name ="GetContacts")]
         public async Task<ActionResult<IEnumerable<ContactDto>>> GetContacts([FromRoute]int profileId, [FromQuery] ContactParameters ContactParameters)
         {
-            return Ok(await _service.ContactService.GetContacts(profileId, ContactParameters));
+            var foundContacts = await _service.ContactService.GetContacts(profileId, ContactParameters);
+            var linkedContacts = _linksCreator.Contact.GenerateLinksForManyEntities(HttpContext, foundContacts);
+            return Ok(linkedContacts);
         }
 
         // GET: api/Profiles/2/Contacts/5
         [HttpGet("{contactId}", Name = "GetContact")]
         public async Task<ActionResult<ContactDto>> GetContact([FromRoute]int profileId, int contactId)
         {
-            return Ok(await _service.ContactService.GetContact(profileId, contactId));
+            var foundContact = await _service.ContactService.GetContact(profileId, contactId);
+            var linkedContact = _linksCreator.Contact.GenerateLinksForOneEntity(HttpContext, foundContact);
+            return Ok(linkedContact);
         }
 
         // PUT: api/Profiles/2/Contacts/5
