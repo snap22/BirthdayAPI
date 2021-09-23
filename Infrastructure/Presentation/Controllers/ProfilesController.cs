@@ -75,7 +75,7 @@ namespace BirthdayAPI.Infrastructure.Presentation.Controllers
         ///
         /// </remarks>
         /// <response code="200">Returns a profile that has been found</response>
-        /// <response code="404">If a profile with given account has not been found/response>
+        /// <response code="404">If a profile with given account has not been found</response>
         [HttpGet("Account/{accountId}", Name = "GetProfileByAccount")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
