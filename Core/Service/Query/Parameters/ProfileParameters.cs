@@ -11,6 +11,9 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
         {
             OrderBy = "ProfileId";
         }
+        /// <summary>
+        /// Username of a profile to search for
+        /// </summary>
         public string Username { get; set; }
     }
 }

@@ -15,8 +15,13 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
         private const double DEFAULT_PRICE = 0;
         private double _minPrice;
         private double _maxPrice;
-
+        /// <summary>
+        /// Name of a gift to search for
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Minimal estimated price of a gift
+        /// </summary>
         public double MinPrice
         { 
             get
@@ -29,7 +34,9 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
                 _minPrice = (value < 0) ? DEFAULT_PRICE : value;
             }
         }
-
+        /// <summary>
+        /// Maximal estimated price of a gift
+        /// </summary>
         public double MaxPrice
         {
             get

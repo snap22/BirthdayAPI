@@ -12,9 +12,18 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
         {
             OrderBy = "AccountId";
         }
+        /// <summary>
+        /// Minimal year of account creation
+        /// </summary>
         public uint MinYearOfCreation { get; set; }
+        /// <summary>
+        /// Maximal year of account creation
+        /// </summary>
         public uint MaxYearOfCreation { get; set; } = (uint)DateTime.Now.Year;
         public bool IsValidYearRange() => MinYearOfCreation < MaxYearOfCreation;
+        /// <summary>
+        /// Email address to search for
+        /// </summary>
         public string EmailAddress { get; set; }
     }
 }

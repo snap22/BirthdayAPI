@@ -12,6 +12,9 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
             OrderBy = "NoteId";
         }
 
+        /// <summary>
+        /// Title of a note to search for
+        /// </summary>
         public string Title { get; set; }
     }
 }

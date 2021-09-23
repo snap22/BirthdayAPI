@@ -10,6 +10,10 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
 
         private int _pageSize = DEFAULT_PAGE_SIZE;
         private int _page = DEFAULT_PAGE;
+
+        /// <summary>
+        /// Page to show
+        /// </summary>
         public int Page
         { 
             get
@@ -21,6 +25,10 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
                 _page = (value > 0) ? value : DEFAULT_PAGE;
             }
         } 
+
+        /// <summary>
+        /// Number of elements to show per page
+        /// </summary>
         public int PageSize
         {
             get
@@ -32,6 +40,10 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
                 _pageSize = (value > MAX_PAGE_SIZE || value <= 0) ? DEFAULT_PAGE_SIZE : value;
             }
         }
+
+        /// <summary>
+        /// String for ordering: "{attribute name} {asc/desc}" (e.g. id desc, name asc)
+        /// </summary>
         public string OrderBy { get; set; }
     }
 }

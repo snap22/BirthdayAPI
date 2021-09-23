@@ -16,7 +16,13 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
         {
             OrderBy = "ContactId";
         }
+        /// <summary>
+        /// Name of a contact to search for
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Minimal month of a contact's date
+        /// </summary>
         public int MinMonth { 
             get
             {
@@ -28,6 +34,9 @@ namespace BirthdayAPI.Core.Service.Query.Parameters
                 _minMonth = (value < MIN_VALUE || value > MAX_VALUE) ? MIN_VALUE : value;
             }
         }
+        /// <summary>
+        /// Maximal month of a contact's date
+        /// </summary>
         public int MaxMonth { 
             get
             {
